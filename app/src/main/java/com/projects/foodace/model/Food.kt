@@ -1,5 +1,6 @@
 package com.projects.foodace.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -8,7 +9,9 @@ import com.projects.foodace.model.Category.BURGER
 import com.projects.foodace.model.Category.DESSERT
 import com.projects.foodace.model.Category.DRINK
 import com.projects.foodace.model.Category.PIZZA
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(tableName = "Food")
 data class Food(
     @PrimaryKey
@@ -24,7 +27,7 @@ data class Food(
     val img: Int,
     @ColumnInfo(name = "isPopular")
     val isPopular: Boolean
-) {
+) : Parcelable {
     companion object {
         val popularFoodsList = listOf(
             Food("Margherita", PIZZA, "Pomodoro, mozzarella, origano",

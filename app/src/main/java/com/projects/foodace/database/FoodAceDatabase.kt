@@ -32,7 +32,6 @@ internal abstract class FoodAceDatabase : RoomDatabase() {
                             .fallbackToDestructiveMigration()
                             .addCallback(Populator())
                             .build()
-                        // todo: togliere
                     }
                 }
             }
@@ -41,6 +40,7 @@ internal abstract class FoodAceDatabase : RoomDatabase() {
     }
 
     private class Populator : Callback() {
+
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
             instance?.let {

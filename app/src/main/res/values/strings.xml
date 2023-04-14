@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">FoodAce</string>
+    <string name="get_started">Get Started!</string>
+    <string name="categories">Categories</string>
+    <string name="populars">Populars</string>
+    <string name="search_bar_hint">Look up for food</string>
+    <string name="cart">Cart</string>
+    <string name="favorite">Favorite</string>
+    <string name="settings">Settings</string>
+    <string name="home">Home</string>
+    <string name="accountFragmentSalutation">Hi, %1$s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="login_failed_msg">Wrong username or password!</string>
+    <string name="register">Register</string>
+    <string name="price_string">$%1$.2f</string>
+    <string name="add_to_cart">Add To Cart</string>
+</resources>

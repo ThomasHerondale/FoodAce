@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/homePage">
+
+    <fragment
+        android:id="@+id/homePage"
+        android:name="com.projects.foodace.HomeFragment"
+        android:label="Home page"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/homePage_to_cartPage"
+            app:destination="@id/cartPage" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cartPage"
+        android:name="com.projects.foodace.CartFragment"
+        android:label="Cart page"
+        tools:layout="@layout/fragment_cart">
+
+        <action
+            android:id="@+id/cartPage_to_homePage"
+            app:destination="@id/homePage" />
+    </fragment>
+</navigation>

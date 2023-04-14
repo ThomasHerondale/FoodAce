@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFFFF</color>
+    <color name="bright_orange">#FF5526</color>
+    <color name="cream">#FFFFEAC2</color>
+    <color name="dark_blue">#FF273043</color>
+    <color name="magnolia">#FFEFE8EE</color>
+    <color name="light_cream">#FFFEF4E5</color>
+    <color name="light_purple">#FFF5E5FE</color>
+    <color name="light_ice">#FFE5F1FE</color>
+    <color name="light_mint">#FFEBFEE5</color>
+    <color name="light_pink">#FFF9E4E4</color>
+
+</resources>

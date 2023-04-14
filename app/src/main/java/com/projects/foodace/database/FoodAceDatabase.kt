@@ -32,7 +32,6 @@ internal abstract class FoodAceDatabase : RoomDatabase() {
                             .fallbackToDestructiveMigration()
                             .addCallback(Populator())
                             .build()
-                        // todo: togliere
                     }
                 }
             }

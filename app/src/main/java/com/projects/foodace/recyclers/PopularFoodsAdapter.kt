@@ -37,7 +37,7 @@ class PopularFoodsAdapter : ListAdapter<Food, PopularFoodsAdapter.ViewHolder>(di
 
         holder.itemView.setOnClickListener {
             val intent = Intent(it.context.applicationContext, FoodDetailsActivity::class.java)
-            intent.putExtra("foodName", getItem(position).name)
+            intent.putExtra("food", getItem(position))
             it.context.startActivity(intent)
         }
     }

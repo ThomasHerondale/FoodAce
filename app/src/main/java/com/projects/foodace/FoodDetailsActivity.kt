@@ -5,15 +5,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.projects.foodace.databinding.ActivityFoodDetailsBinding
-import com.projects.foodace.model.Category
 import com.projects.foodace.model.Food
 import com.projects.foodace.model.FoodDetailsViewModel
 import com.projects.foodace.model.FoodDetailsViewModelFactory
 
 class FoodDetailsActivity : AppCompatActivity() {
     private val viewModel: FoodDetailsViewModel by viewModels { FoodDetailsViewModelFactory(
-        Food("Margherita", Category.PIZZA, "Pomodoro, mozzarella, origano",
-            7.5, R.drawable.pizza, true), application
+        intent.extras?.get("food") as Food, application
     ) }
     private lateinit var binding: ActivityFoodDetailsBinding
 

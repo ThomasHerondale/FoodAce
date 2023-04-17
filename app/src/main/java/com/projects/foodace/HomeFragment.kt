@@ -19,6 +19,10 @@ class HomeFragment : NavHostFragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: PopularFoodsViewModel by activityViewModels()
 
+    private val detailsActivityLauncher = registerForActivityResult(AddToCartContract()) {
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -46,7 +50,7 @@ class HomeFragment : NavHostFragment() {
         Log.v("Init", "Initializing popular foods RecyclerView")
         binding.popularsList.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            val foodsAdapter = PopularFoodsAdapter()
+            val foodsAdapter = PopularFoodsAdapter(detailsActivityLauncher)
             adapter = foodsAdapter
             lifecycle.coroutineScope.launch {
                 viewModel.popularFoods.collect {
@@ -54,15 +58,5 @@ class HomeFragment : NavHostFragment() {
                 }
             }
         }
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         * @return A new instance of fragment HomeFragment.
-         */
-        @JvmStatic
-        fun newInstance() = HomeFragment()
     }
 }

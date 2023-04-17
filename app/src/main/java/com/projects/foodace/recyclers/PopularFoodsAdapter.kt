@@ -1,20 +1,20 @@
 package com.projects.foodace.recyclers
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.projects.foodace.FoodDetailsActivity
 import com.projects.foodace.R
 import com.projects.foodace.databinding.PopularFoodViewHolderBinding
 import com.projects.foodace.model.Food
 
-class PopularFoodsAdapter : ListAdapter<Food, PopularFoodsAdapter.ViewHolder>(diffCallback) {
+class PopularFoodsAdapter(private val detailsActivityLauncher: ActivityResultLauncher<Food>)
+    : ListAdapter<Food, PopularFoodsAdapter.ViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -36,9 +36,7 @@ class PopularFoodsAdapter : ListAdapter<Food, PopularFoodsAdapter.ViewHolder>(di
             .into(holder.binding.foodImg)
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(it.context.applicationContext, FoodDetailsActivity::class.java)
-            intent.putExtra("food", getItem(position))
-            it.context.startActivity(intent)
+            detailsActivityLauncher.launch(getItem(position))
         }
     }
 

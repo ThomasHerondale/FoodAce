@@ -1,5 +1,6 @@
 package com.projects.foodace
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -41,6 +42,15 @@ class FoodDetailsActivity : AppCompatActivity() {
 
         binding.subButton.setOnClickListener {
             viewModel.quantity.value = viewModel.quantity.value?.minus(1)
+        }
+
+        binding.addToCartButton.setOnClickListener {
+            val intent = Intent().apply {
+                putExtra("food", viewModel.food.value)
+                putExtra("quantity", viewModel.quantity.value)
+            }
+            setResult(RESULT_OK, intent)
+            finish()
         }
 
         setContentView(binding.root)

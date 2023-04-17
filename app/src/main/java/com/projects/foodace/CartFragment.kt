@@ -21,15 +21,15 @@ class CartFragment : NavHostFragment() {
     }
 }
 
-class AddToCartContract : ActivityResultContract<Food, Int>() {
+class AddToCartContract : ActivityResultContract<Food, Pair<Food, Int>>() {
     override fun createIntent(context: Context, input: Food) =
         Intent(context, FoodDetailsActivity::class.java).apply {
             putExtra("food", input)
         }
 
-    override fun parseResult(resultCode: Int, intent: Intent?): Int {
+    override fun parseResult(resultCode: Int, intent: Intent?): Pair<Food, Int> {
         return if (resultCode == RESULT_OK)
-            intent!!.extras!!.getInt("quantity")
+            intent!!.extras!!.get("food") as Food to intent.extras!!.get("quantity") as Int
         else
             throw IllegalStateException("ShowDetailsActivity did not provide quantity.")
     }

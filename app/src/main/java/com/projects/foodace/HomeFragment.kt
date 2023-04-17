@@ -20,7 +20,7 @@ class HomeFragment : NavHostFragment() {
     private val viewModel: PopularFoodsViewModel by activityViewModels()
 
     private val detailsActivityLauncher = registerForActivityResult(AddToCartContract()) {
-
+        Log.i("CART", "Adding to cart ${it.second} of ${it.first}")
     }
 
     override fun onCreateView(

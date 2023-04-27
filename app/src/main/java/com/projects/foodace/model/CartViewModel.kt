@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 typealias CartEntry = Pair<Food, Int>
 
 class CartViewModel : ViewModel() {
-    private val content = MutableLiveData<List<CartEntry>>(listOf())
+    val content = MutableLiveData<List<CartEntry>>(listOf())
 
     private fun addItems(food: Food, quantity: Int) {
         Log.i("CART", "Adding to cart $quantity of ${food.name}")

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp"
+        app:cardBackgroundColor="@color/cream"
+        app:cardCornerRadius="12dp"
+        app:contentPadding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/foodImgCart"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@drawable/pizza" />
+
+            <TextView
+                android:id="@+id/foodDescrCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:ellipsize="end"
+                android:maxEms="10"
+                android:maxLines="2"
+                android:textColor="#CC273043"
+                app:layout_constraintStart_toStartOf="@+id/foodNameCart"
+                app:layout_constraintTop_toBottomOf="@+id/foodNameCart"
+                tools:text="Tomato sauce, mozzarella cheese, fresh oregano, olive oil" />
+
+            <TextView
+                android:id="@+id/foodNameCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/dark_blue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/foodImgCart"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Margherita" />
+
+            <ImageButton
+                android:id="@+id/subBttnCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/plus_minus_bttn_bground"
+                android:elevation="2dp"
+                android:padding="6dp"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:src="@drawable/minus_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/quantityCart"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/foodDescrCart"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/quantityCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:textColor="@color/dark_blue"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/subBttnCart"
+                app:layout_constraintEnd_toStartOf="@+id/plusBttnCart"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/subBttnCart"
+                app:layout_constraintTop_toTopOf="@+id/subBttnCart"
+                tools:text="0" />
+
+            <ImageButton
+                android:id="@+id/plusBttnCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/plus_minus_bttn_bground"
+                android:elevation="2dp"
+                android:padding="6dp"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:src="@drawable/plus_icon"
+                app:layout_constraintBottom_toBottomOf="@+id/quantityCart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/quantityCart"
+                app:layout_constraintTop_toTopOf="@+id/quantityCart"
+                app:tint="@color/white" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

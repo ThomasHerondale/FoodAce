@@ -10,6 +10,7 @@ import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.projects.foodace.databinding.FragmentHomeBinding
+import com.projects.foodace.model.CartViewModel
 import com.projects.foodace.model.PopularFoodsViewModel
 import com.projects.foodace.recyclers.CategoriesAdapter
 import com.projects.foodace.recyclers.PopularFoodsAdapter
@@ -17,10 +18,11 @@ import kotlinx.coroutines.launch
 
 class HomeFragment : NavHostFragment() {
     private lateinit var binding: FragmentHomeBinding
-    private val viewModel: PopularFoodsViewModel by activityViewModels()
+    private val popularFoodsViewModel: PopularFoodsViewModel by activityViewModels()
+    private val cartViewModel: CartViewModel by activityViewModels()
 
     private val detailsActivityLauncher = registerForActivityResult(AddToCartContract()) {
-        Log.i("CART", "Adding to cart ${it.second} of ${it.first}")
+        cartViewModel.addItems(it)
     }
 
     override fun onCreateView(
@@ -53,7 +55,7 @@ class HomeFragment : NavHostFragment() {
             val foodsAdapter = PopularFoodsAdapter(detailsActivityLauncher)
             adapter = foodsAdapter
             lifecycle.coroutineScope.launch {
-                viewModel.popularFoods.collect {
+                popularFoodsViewModel.popularFoods.collect {
                     foodsAdapter.submitList(it)
                 }
             }

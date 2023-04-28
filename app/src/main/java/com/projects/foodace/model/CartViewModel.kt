@@ -3,11 +3,14 @@ package com.projects.foodace.model
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.projects.foodace.Event
 
 typealias CartEntry = Pair<Food, Int>
 
 class CartViewModel : ViewModel() {
     val content = MutableLiveData<List<CartEntry>>(listOf())
+    private val _foodRemoval = MutableLiveData<Event<Food?>>()
+    val foodRemoval = _foodRemoval
 
     private fun addItem(food: Food, quantity: Int) {
         Log.i("CART", "Adding to cart $quantity of ${food.name}")
@@ -40,10 +43,11 @@ class CartViewModel : ViewModel() {
             throw IllegalArgumentException("${food.name} is not in cart and cannot be removed.")
         else {
             val newEntry = food to (newContent[idx].second - 1)
-            if (newEntry.second == 0)
+            if (newEntry.second == 0) {
                 // If quantity becomes 0, item has to be removed
                 newContent.removeAt(idx)
-            else {
+                _foodRemoval.value = Event(food)
+            } else {
                 newContent.removeAt(idx)
                 newContent.add(newEntry)
             }
@@ -52,6 +56,11 @@ class CartViewModel : ViewModel() {
         content.value = newContent
 
         Log.v("CART", "Cart is now ${content.value}")
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        foodRemoval.value = null
     }
 
     private fun findEntry(food: Food) =

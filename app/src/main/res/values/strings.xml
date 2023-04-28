@@ -19,4 +19,5 @@
     <string name="price_string">$%1$.2f</string>
     <string name="add_to_cart">Add To Cart</string>
     <string name="your_cart">Your Cart</string>
+    <string name="removed_from_cart_snack_text">%s removed from cart.</string>
 </resources>

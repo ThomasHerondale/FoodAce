@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
+import com.google.android.material.snackbar.Snackbar
 import com.projects.foodace.databinding.FragmentCartBinding
 import com.projects.foodace.model.CartViewModel
 import com.projects.foodace.model.Food
@@ -40,6 +41,24 @@ class CartFragment : NavHostFragment() {
         viewModel.content.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
+
+        viewModel.foodRemoval.observe(viewLifecycleOwner) { event ->
+            event.getContentIfNotHandled()?.let {
+                showItemRemovedSnackbar(it)
+            }
+        }
+    }
+
+    private fun showItemRemovedSnackbar(food: Food) {
+        val snackbar = Snackbar.make(
+            requireView(),
+            getString(R.string.removed_from_cart_snack_text, food.name),
+            Snackbar.LENGTH_SHORT
+        )
+        snackbar.setAction("Undo") {
+            viewModel.addOneOf(food)
+        }
+        snackbar.show()
     }
 }
 

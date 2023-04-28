@@ -58,6 +58,20 @@ class CartViewModel : ViewModel() {
         Log.v("CART", "Cart is now ${content.value}")
     }
 
+    fun removeItem(food: Food) {
+        val newContent = content.value!!.toMutableList()
+
+        val idx = findEntry(food)
+        if (idx == -1)
+            throw IllegalArgumentException("${food.name} is not in cart and cannot be removed.")
+        else
+            newContent.removeAt(idx)
+
+        content.value = newContent
+
+        Log.v("CART", "Cart is now ${content.value}")
+    }
+
     override fun onCleared() {
         super.onCleared()
         foodRemoval.value = null

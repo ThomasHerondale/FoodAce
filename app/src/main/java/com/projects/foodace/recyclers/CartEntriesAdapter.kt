@@ -14,7 +14,8 @@ import com.projects.foodace.model.Food
 
 class CartEntriesAdapter(
     private val onPlusButtonClicked: (Food) -> Unit,
-    private val onMinusButtonClicked: (Food) -> Unit
+    private val onMinusButtonClicked: (Food) -> Unit,
+    private val onDeleteButtonClicked: (Food) -> Unit
 ) : ListAdapter<CartEntry, CartEntriesAdapter.ViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,6 +38,7 @@ class CartEntriesAdapter(
 
             plusBttnCart.setOnClickListener { onPlusButtonClicked(food) }
             subBttnCart.setOnClickListener { onMinusButtonClicked(food) }
+            delBttnCart.setOnClickListener { onDeleteButtonClicked(food) }
         }
     }
 

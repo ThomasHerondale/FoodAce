@@ -30,19 +30,6 @@
                 tools:srcCompat="@drawable/pizza" />
 
             <TextView
-                android:id="@+id/foodDescrCart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:ellipsize="end"
-                android:maxEms="10"
-                android:maxLines="2"
-                android:textColor="#CC273043"
-                app:layout_constraintStart_toStartOf="@+id/foodNameCart"
-                app:layout_constraintTop_toBottomOf="@+id/foodNameCart"
-                tools:text="Tomato sauce, mozzarella cheese, fresh oregano, olive oil" />
-
-            <TextView
                 android:id="@+id/foodNameCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,11 +42,30 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Margherita" />
 
+            <TextView
+                android:id="@+id/foodDescrCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:ellipsize="end"
+                android:maxEms="10"
+                android:maxLines="2"
+                android:textColor="#CC273043"
+                app:layout_constraintStart_toStartOf="@+id/foodNameCart"
+                app:layout_constraintTop_toBottomOf="@+id/foodNameCart"
+                tools:text="Tomato sauce, mozzarella cheese, fresh oregano, olive oil" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="135dp" />
+
             <ImageButton
                 android:id="@+id/subBttnCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
                 android:background="@drawable/plus_minus_bttn_bground"
                 android:elevation="2dp"
                 android:padding="6dp"
@@ -68,8 +74,7 @@
                 android:src="@drawable/minus_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/quantityCart"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/foodDescrCart"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/white" />
 

@@ -18,4 +18,5 @@
     <string name="register">Register</string>
     <string name="price_string">$%1$.2f</string>
     <string name="add_to_cart">Add To Cart</string>
+    <string name="your_cart">Your Cart</string>
 </resources>

@@ -22,7 +22,8 @@ class HomeFragment : NavHostFragment() {
     private val cartViewModel: CartViewModel by activityViewModels()
 
     private val detailsActivityLauncher = registerForActivityResult(AddToCartContract()) {
-        cartViewModel.addItem(it)
+        if (it.second != 0) // Quantity can be 0 if user exits using back button
+            cartViewModel.addItem(it)
     }
 
     override fun onCreateView(

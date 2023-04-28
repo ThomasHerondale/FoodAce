@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import com.google.android.material.snackbar.Snackbar
 import com.projects.foodace.databinding.FragmentCartBinding
+import com.projects.foodace.model.CartEntry
 import com.projects.foodace.model.CartViewModel
 import com.projects.foodace.model.Food
 import com.projects.foodace.recyclers.CartEntriesAdapter
@@ -53,14 +54,14 @@ class CartFragment : NavHostFragment() {
         }
     }
 
-    private fun showItemRemovedSnackbar(food: Food) {
+    private fun showItemRemovedSnackbar(item: CartEntry) {
         val snackbar = Snackbar.make(
             requireView(),
-            getString(R.string.removed_from_cart_snack_text, food.name),
+            getString(R.string.removed_from_cart_snack_text, item.first.name),
             Snackbar.LENGTH_SHORT
         )
         snackbar.setAction("Undo") {
-            viewModel.addOneOf(food)
+            viewModel.addItem(item)
         }
         snackbar.show()
     }

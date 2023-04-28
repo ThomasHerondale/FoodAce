@@ -9,7 +9,7 @@ typealias CartEntry = Pair<Food, Int>
 
 class CartViewModel : ViewModel() {
     val content = MutableLiveData<List<CartEntry>>(listOf())
-    private val _foodRemoval = MutableLiveData<Event<Food?>>()
+    private val _foodRemoval = MutableLiveData<Event<CartEntry?>>()
     val foodRemoval = _foodRemoval
 
     private fun addItem(food: Food, quantity: Int) {
@@ -46,7 +46,7 @@ class CartViewModel : ViewModel() {
             if (newEntry.second == 0) {
                 // If quantity becomes 0, item has to be removed
                 newContent.removeAt(idx)
-                _foodRemoval.value = Event(food)
+                _foodRemoval.value = Event(food to content.value!![idx].second)
             } else {
                 newContent.removeAt(idx)
                 newContent.add(newEntry)
@@ -64,8 +64,10 @@ class CartViewModel : ViewModel() {
         val idx = findEntry(food)
         if (idx == -1)
             throw IllegalArgumentException("${food.name} is not in cart and cannot be removed.")
-        else
+        else {
             newContent.removeAt(idx)
+            _foodRemoval.value = Event(food to content.value!![idx].second)
+        }
 
         content.value = newContent
 

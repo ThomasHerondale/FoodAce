@@ -31,7 +31,7 @@ class CartFragment : NavHostFragment() {
     }
 
     private fun initContentList() {
-        val adapter = CartEntriesAdapter()
+        val adapter = CartEntriesAdapter(viewModel::addOneOf, viewModel::removeOneOf)
 
         binding.contentList.adapter = adapter
         binding.contentList.layoutManager =

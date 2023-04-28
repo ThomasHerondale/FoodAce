@@ -22,7 +22,7 @@ class HomeFragment : NavHostFragment() {
     private val cartViewModel: CartViewModel by activityViewModels()
 
     private val detailsActivityLauncher = registerForActivityResult(AddToCartContract()) {
-        cartViewModel.addItems(it)
+        cartViewModel.addItem(it)
     }
 
     override fun onCreateView(

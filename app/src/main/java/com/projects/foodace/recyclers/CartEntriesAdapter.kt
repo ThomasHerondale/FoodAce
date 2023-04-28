@@ -10,8 +10,12 @@ import com.bumptech.glide.Glide
 import com.projects.foodace.R
 import com.projects.foodace.databinding.CartEntryViewHolderBinding
 import com.projects.foodace.model.CartEntry
+import com.projects.foodace.model.Food
 
-class CartEntriesAdapter : ListAdapter<CartEntry, CartEntriesAdapter.ViewHolder>(diffCallback) {
+class CartEntriesAdapter(
+    private val onPlusButtonClicked: (Food) -> Unit,
+    private val onMinusButtonClicked: (Food) -> Unit
+) : ListAdapter<CartEntry, CartEntriesAdapter.ViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -30,6 +34,9 @@ class CartEntriesAdapter : ListAdapter<CartEntry, CartEntriesAdapter.ViewHolder>
             Glide.with(holder.itemView)
                 .load(food.img)
                 .into(foodImgCart)
+
+            plusBttnCart.setOnClickListener { onPlusButtonClicked(food) }
+            subBttnCart.setOnClickListener { onMinusButtonClicked(food) }
         }
     }
 

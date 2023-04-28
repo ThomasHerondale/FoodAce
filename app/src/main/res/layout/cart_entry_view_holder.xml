@@ -11,6 +11,7 @@
         android:layout_marginVertical="16dp"
         app:cardBackgroundColor="@color/cream"
         app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
         app:contentPadding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,9 +23,10 @@
 
             <ImageView
                 android:id="@+id/foodImgCart"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imgGuideline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@drawable/pizza" />
@@ -33,34 +35,36 @@
                 android:id="@+id/foodNameCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 android:textColor="@color/dark_blue"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/foodImgCart"
+                app:layout_constraintBottom_toTopOf="@+id/foodDescrCart"
+                app:layout_constraintStart_toStartOf="@+id/foodDescrCart"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
                 tools:text="Margherita" />
 
             <TextView
                 android:id="@+id/foodDescrCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
                 android:layout_marginTop="6dp"
                 android:ellipsize="end"
-                android:maxEms="10"
+                android:maxEms="7"
                 android:maxLines="2"
                 android:textColor="#CC273043"
-                app:layout_constraintStart_toStartOf="@+id/foodNameCart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imgGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/foodNameCart"
                 tools:text="Tomato sauce, mozzarella cheese, fresh oregano, olive oil" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
+                android:id="@+id/textGuideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_end="135dp" />
+                app:layout_constraintGuide_percent="0.6" />
 
             <ImageButton
                 android:id="@+id/subBttnCart"
@@ -72,11 +76,11 @@
                 android:scaleX="0.8"
                 android:scaleY="0.8"
                 android:src="@drawable/minus_icon"
+                android:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/quantityCart"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toTopOf="parent"
-                android:tint="@color/white" />
+                app:layout_constraintStart_toStartOf="@+id/textGuideline"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/quantityCart"
@@ -104,12 +108,37 @@
                 android:scaleX="0.8"
                 android:scaleY="0.8"
                 android:src="@drawable/plus_icon"
+                android:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/quantityCart"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/delBttnCart"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/quantityCart"
-                app:layout_constraintTop_toTopOf="@+id/quantityCart"
-                android:tint="@color/white" />
+                app:layout_constraintTop_toTopOf="@+id/quantityCart" />
+
+            <ImageButton
+                android:id="@+id/delBttnCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/plus_minus_bttn_bground"
+                android:elevation="2dp"
+                android:padding="6dp"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:src="@drawable/delete_icon"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/plusBttnCart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/plusBttnCart"
+                app:layout_constraintTop_toTopOf="@+id/plusBttnCart" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/imgGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.15" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

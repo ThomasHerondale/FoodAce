@@ -63,6 +63,9 @@ class CartFragment : NavHostFragment() {
         snackbar.setAction("Undo") {
             viewModel.addItem(item)
         }
+        snackbar.setAnchorView(R.id.navBar)
+        snackbar.setActionTextColor(resources.getColor(R.color.bright_orange))
+        snackbar.setBackgroundTint(resources.getColor(R.color.dark_blue))
         snackbar.show()
     }
 }

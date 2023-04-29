@@ -35,6 +35,8 @@
                 android:id="@+id/foodNameCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxEms="7"
+                android:maxLines="2"
                 android:textColor="@color/dark_blue"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -42,7 +44,7 @@
                 app:layout_constraintStart_toStartOf="@+id/foodDescrCart"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed"
-                tools:text="Margherita" />
+                tools:text="Chicago-style Hot Dog" />
 
             <TextView
                 android:id="@+id/foodDescrCart"

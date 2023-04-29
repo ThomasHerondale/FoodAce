@@ -55,18 +55,20 @@ class CartFragment : NavHostFragment() {
     }
 
     private fun showItemRemovedSnackbar(item: CartEntry) {
-        val snackbar = Snackbar.make(
+        Snackbar.make(
             requireView(),
             getString(R.string.removed_from_cart_snack_text, item.first.name),
             Snackbar.LENGTH_SHORT
-        )
-        snackbar.setAction("Undo") {
-            viewModel.addItem(item)
-        }
-        snackbar.setAnchorView(R.id.navBar)
-        snackbar.setActionTextColor(resources.getColor(R.color.bright_orange))
-        snackbar.setBackgroundTint(resources.getColor(R.color.dark_blue))
-        snackbar.show()
+        ).apply {
+            setAnchorView(R.id.navBar)
+            setActionTextColor(resources.getColor(R.color.bright_orange))
+            setBackgroundTint(resources.getColor(R.color.dark_blue))
+
+            setAction("Undo") {
+                viewModel.addItem(item)
+            }
+        }.show()
+
     }
 }
 

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.projects.foodace.R
 import com.projects.foodace.databinding.CartEntryViewHolderBinding
 import com.projects.foodace.model.CartEntry
@@ -34,6 +35,7 @@ class CartEntriesAdapter(
 
             Glide.with(holder.itemView)
                 .load(food.img)
+                .transform(RoundedCorners(16))
                 .into(foodImgCart)
 
             plusBttnCart.setOnClickListener { onPlusButtonClicked(food) }

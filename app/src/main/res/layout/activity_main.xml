@@ -19,34 +19,41 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_account" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/pageFragmentView"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:defaultNavHost="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountFragmentView"
-        app:navGraph="@navigation/main_nav"
-        tools:layout="@layout/fragment_home" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:backgroundTint="@color/cream"
-        app:itemActiveIndicatorStyle="@null"
-        app:itemIconTint="@color/menu_item_selector"
-        app:itemPaddingBottom="24dp"
-        app:itemPaddingTop="12dp"
-        app:itemRippleColor="@android:color/transparent"
-        app:itemTextColor="@color/menu_item_selector"
-        app:labelVisibilityMode="labeled"
+        android:layout_height="0dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/main_bottom_nav" />
+        app:layout_constraintTop_toBottomOf="@+id/accountFragmentView">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/pageFragmentView"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="top"
+            android:layout_marginTop="24dp"
+            android:layout_weight="1"
+            app:navGraph="@navigation/main_nav"
+            tools:layout="@layout/fragment_cart" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:backgroundTint="@color/cream"
+            app:itemActiveIndicatorStyle="@null"
+            app:itemIconTint="@color/menu_item_selector"
+            app:itemPaddingBottom="24dp"
+            app:itemPaddingTop="12dp"
+            app:itemRippleColor="@android:color/transparent"
+            app:itemTextColor="@color/menu_item_selector"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/main_bottom_nav" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

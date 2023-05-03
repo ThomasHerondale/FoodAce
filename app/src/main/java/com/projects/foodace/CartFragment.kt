@@ -60,7 +60,7 @@ class CartFragment : NavHostFragment() {
     private fun showItemRemovedSnackbar(item: CartEntry) {
         Snackbar.make(
             requireView(),
-            getString(R.string.removed_from_cart_snack_text, item.first.name),
+            getString(R.string.removed_from_cart_snack_text, item.food.name),
             Snackbar.LENGTH_SHORT
         ).apply {
             setAnchorView(R.id.navBar)
@@ -75,16 +75,18 @@ class CartFragment : NavHostFragment() {
     }
 }
 
-class AddToCartContract : ActivityResultContract<Food, Pair<Food, Int>>() {
+class AddToCartContract : ActivityResultContract<Food, CartEntry>() {
     override fun createIntent(context: Context, input: Food) =
         Intent(context, FoodDetailsActivity::class.java).apply {
             putExtra("food", input)
         }
 
-    override fun parseResult(resultCode: Int, intent: Intent?): Pair<Food, Int> {
-        return if (resultCode == RESULT_OK)
-            intent!!.extras!!.get("food") as Food to intent.extras!!.get("quantity") as Int
-        else
+    override fun parseResult(resultCode: Int, intent: Intent?): CartEntry {
+        return if (resultCode == RESULT_OK) {
+            val quantity = intent?.extras!!.get("quantity") as Int
+            val food = intent.extras!!.get("food") as Food
+            CartEntry(food, quantity)
+        } else
             throw IllegalStateException("ShowDetailsActivity did not provide quantity.")
     }
 

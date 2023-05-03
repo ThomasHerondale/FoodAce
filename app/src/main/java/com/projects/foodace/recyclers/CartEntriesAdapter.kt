@@ -1,5 +1,6 @@
 package com.projects.foodace.recyclers
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,14 +48,27 @@ class CartEntriesAdapter(
         }
     }
 
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
+        if (payloads.isEmpty())
+            onBindViewHolder(holder, position)
+        else {
+            val (_, quantity) = getItem(position)
+            holder.binding.quantityCart.text = "$quantity"
+        }
+    }
+
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<CartEntry>() {
             override fun areItemsTheSame(oldItem: CartEntry, newItem: CartEntry): Boolean {
-                return oldItem.first == newItem.first
+                return oldItem.food.name == newItem.food.name
             }
 
             override fun areContentsTheSame(oldItem: CartEntry, newItem: CartEntry): Boolean {
-               return oldItem.second == newItem.second
+               return oldItem.quantity == newItem.quantity
+            }
+
+            override fun getChangePayload(oldItem: CartEntry, newItem: CartEntry): Any? {
+                return Bundle().putInt("quantity", newItem.quantity)
             }
         }
     }

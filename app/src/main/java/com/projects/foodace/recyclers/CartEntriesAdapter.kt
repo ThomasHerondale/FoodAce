@@ -34,7 +34,7 @@ class CartEntriesAdapter(
             foodDescrCart.text = food.description
             quantityCart.text = "$quantity"
             val totalPrice = (quantity * food.price).roundToDecimalPlaces(2)
-            totalPriceCart.text = "$totalPrice"
+            totalPriceCart.text = root.resources.getString(R.string.price_string, totalPrice)
 
             Glide.with(holder.itemView)
                 .load(food.img)

@@ -79,10 +79,10 @@
                 android:scaleY="0.8"
                 android:src="@drawable/minus_icon"
                 android:tint="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/quantityCart"
                 app:layout_constraintEnd_toStartOf="@+id/quantityCart"
                 app:layout_constraintStart_toStartOf="@+id/textGuideline"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/quantityCart" />
 
             <TextView
                 android:id="@+id/quantityCart"
@@ -93,12 +93,26 @@
                 android:textColor="@color/dark_blue"
                 android:textSize="21sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/subBttnCart"
+                app:layout_constraintBottom_toTopOf="@+id/totalPriceCart"
                 app:layout_constraintEnd_toStartOf="@+id/plusBttnCart"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/subBttnCart"
-                app:layout_constraintTop_toTopOf="@+id/subBttnCart"
-                tools:text="0" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="10" />
+
+            <TextView
+                android:id="@+id/totalPriceCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_blue"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/delBttnCart"
+                app:layout_constraintStart_toEndOf="@+id/foodDescrCart"
+                app:layout_constraintStart_toStartOf="@+id/textGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/quantityCart"
+                tools:text="$15.99" />
 
             <ImageButton
                 android:id="@+id/plusBttnCart"
@@ -112,7 +126,7 @@
                 android:src="@drawable/plus_icon"
                 android:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/quantityCart"
-                app:layout_constraintEnd_toStartOf="@+id/delBttnCart"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/quantityCart"
                 app:layout_constraintTop_toTopOf="@+id/quantityCart" />
@@ -121,8 +135,6 @@
                 android:id="@+id/delBttnCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="8dp"
                 android:background="@drawable/plus_minus_bttn_bground"
                 android:elevation="2dp"
                 android:padding="6dp"
@@ -130,10 +142,10 @@
                 android:scaleY="0.8"
                 android:src="@drawable/delete_icon"
                 android:tint="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/plusBttnCart"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/plusBttnCart"
-                app:layout_constraintTop_toTopOf="@+id/plusBttnCart" />
+                app:layout_constraintBottom_toBottomOf="@+id/totalPriceCart"
+                app:layout_constraintEnd_toEndOf="@+id/plusBttnCart"
+                app:layout_constraintStart_toStartOf="@+id/plusBttnCart"
+                app:layout_constraintTop_toTopOf="@+id/totalPriceCart" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/imgGuideline"

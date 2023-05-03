@@ -12,6 +12,7 @@ import com.projects.foodace.R
 import com.projects.foodace.databinding.CartEntryViewHolderBinding
 import com.projects.foodace.model.CartEntry
 import com.projects.foodace.model.Food
+import com.projects.foodace.model.roundToDecimalPlaces
 
 class CartEntriesAdapter(
     private val onPlusButtonClicked: (Food) -> Unit,
@@ -32,6 +33,8 @@ class CartEntriesAdapter(
             foodNameCart.text = food.name
             foodDescrCart.text = food.description
             quantityCart.text = "$quantity"
+            val totalPrice = (quantity * food.price).roundToDecimalPlaces(2)
+            totalPriceCart.text = "$totalPrice"
 
             Glide.with(holder.itemView)
                 .load(food.img)

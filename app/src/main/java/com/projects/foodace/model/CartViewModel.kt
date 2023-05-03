@@ -21,9 +21,7 @@ class CartViewModel : ViewModel() {
     init {
         _totalCost.addSource(content) {
             _totalCost.value = it.sumOf { (food, quantity) -> food.price * quantity }
-                .toBigDecimal()
-                .setScale(2, RoundingMode.FLOOR)
-                .toDouble()
+                .roundToDecimalPlaces(2)
         }
     }
 
@@ -97,3 +95,8 @@ class CartViewModel : ViewModel() {
     private fun findEntry(food: Food) =
         content.value!!.indexOfFirst { (inCartFood) -> food.name == inCartFood.name }
 }
+
+fun Double.roundToDecimalPlaces(places: Int) =
+    this.toBigDecimal()
+        .setScale(2, RoundingMode.FLOOR)
+        .toDouble()

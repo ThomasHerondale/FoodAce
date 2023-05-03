@@ -1,9 +1,13 @@
 package com.projects.foodace.model
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.projects.foodace.Event
+import java.math.RoundingMode
 
 typealias CartEntry = Pair<Food, Int>
 
@@ -11,6 +15,17 @@ class CartViewModel : ViewModel() {
     val content = MutableLiveData<List<CartEntry>>(listOf())
     private val _foodRemoval = MutableLiveData<Event<CartEntry?>>()
     val foodRemoval = _foodRemoval
+    private val _totalCost = MediatorLiveData<Double>()
+    val totalCost: LiveData<Double> = _totalCost
+
+    init {
+        _totalCost.addSource(content) {
+            _totalCost.value = it.sumOf { (food, quantity) -> food.price * quantity }
+                .toBigDecimal()
+                .setScale(2, RoundingMode.FLOOR)
+                .toDouble()
+        }
+    }
 
     private fun addItem(food: Food, quantity: Int) {
         Log.i("CART", "Adding to cart $quantity of ${food.name}")

@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,6 +53,8 @@ class CartFragment : NavHostFragment() {
                 showItemRemovedSnackbar(it)
             }
         }
+
+        viewModel.totalCost.observe(viewLifecycleOwner) { Log.d("CARTD", "Prezzo: $it") }
     }
 
     private fun showItemRemovedSnackbar(item: CartEntry) {

@@ -30,6 +30,20 @@ class CartFragment : NavHostFragment() {
     ): View {
         binding = FragmentCartBinding.inflate(layoutInflater)
         initContentList()
+
+        binding.apply {
+            // TODO: dinamiche in base a qualcosa?
+            val taxesAmt = 2.9
+            val deliveryFeesAmt = 3.5
+            taxes.text = getString(R.string.taxes_tot, taxesAmt)
+            delFees.text = getString(R.string.del_fees_tot, deliveryFeesAmt)
+            viewModel.totalCost.observe(viewLifecycleOwner) {
+                foodTot.text = getString(R.string.food_tot, it)
+
+                val totalAmt = it + taxesAmt + deliveryFeesAmt
+                total.text = getString(R.string.total, totalAmt)
+            }
+        }
         return binding.root
     }
 

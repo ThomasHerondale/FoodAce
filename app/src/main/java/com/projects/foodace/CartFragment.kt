@@ -51,7 +51,8 @@ class CartFragment : NavHostFragment() {
         val adapter = CartEntriesAdapter(
             viewModel::addOneOf,
             viewModel::removeOneOf,
-            viewModel::removeItem
+            viewModel::removeItem,
+            binding
         )
 
         binding.contentList.adapter = adapter

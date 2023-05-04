@@ -150,7 +150,27 @@
         tools:layout_conversion_absoluteHeight="0dp"
         tools:layout_conversion_absoluteWidth="0dp"
         tools:layout_manager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/cart_entry_view_holder" />
+        tools:listitem="@layout/cart_entry_view_holder">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/emptyCartText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/cart_counter_container"
+        android:padding="16dp"
+        android:text="@string/cart_empty_str"
+        android:textAlignment="center"
+        android:textColor="@color/bright_orange"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

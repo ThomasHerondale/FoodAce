@@ -25,4 +25,5 @@
     <string name="del_fees">Delivery Fees:</string>
     <string name="total">Total: $%1$.2f</string>
     <string name="order">Order</string>
+    <string name="cart_empty_str">Hey, go shopping! Your cart is empty!</string>
 </resources>

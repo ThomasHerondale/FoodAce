@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.projects.foodace.R
 import com.projects.foodace.databinding.CartEntryViewHolderBinding
+import com.projects.foodace.databinding.FragmentCartBinding
 import com.projects.foodace.model.CartEntry
 import com.projects.foodace.model.Food
 import com.projects.foodace.model.roundToDecimalPlaces
@@ -19,7 +20,8 @@ import com.projects.foodace.model.roundToDecimalPlaces
 class CartEntriesAdapter(
     private val onPlusButtonClicked: (Food) -> Unit,
     private val onMinusButtonClicked: (Food) -> Unit,
-    private val onDeleteButtonClicked: (Food) -> Unit
+    private val onDeleteButtonClicked: (Food) -> Unit,
+    private val binding: FragmentCartBinding
 ) : ListAdapter<CartEntry, CartEntriesAdapter.ViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -49,6 +51,19 @@ class CartEntriesAdapter(
         }
     }
 
+    override fun onCurrentListChanged(
+        previousList: MutableList<CartEntry>,
+        currentList: MutableList<CartEntry>
+    ) {
+        if (currentList.isEmpty()) {
+            binding.emptyCartText.visibility = View.VISIBLE
+            binding.contentList.visibility = View.GONE
+        } else {
+            binding.emptyCartText.visibility = View.GONE
+            binding.contentList.visibility = View.VISIBLE
+        }
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
         if (payloads.isEmpty())
             onBindViewHolder(holder, position)
@@ -71,14 +86,16 @@ class CartEntriesAdapter(
             override fun areItemsTheSame(oldItem: CartEntry, newItem: CartEntry): Boolean {
                 val result = oldItem.food.name == newItem.food.name
                 Log.v("CARTDIFF",
-                    "Checking ${oldItem.food.name} vs ${newItem.food.name} - Result: $result")
+                    "Checking ${oldItem.food.name} vs " +
+                            "${newItem.food.name} - Result: $result")
                 return result
             }
 
             override fun areContentsTheSame(oldItem: CartEntry, newItem: CartEntry): Boolean {
                 val result = oldItem.quantity == newItem.quantity
                 Log.v("CARTDIFF",
-                    "Checking ${oldItem.food.name}, ${oldItem.quantity} vs ${newItem.food.name}, ${newItem.quantity} - Result: $result")
+                    "Checking ${oldItem.food.name}, ${oldItem.quantity} vs " +
+                            "${newItem.food.name}, ${newItem.quantity} - Result: $result")
                 return result
             }
 

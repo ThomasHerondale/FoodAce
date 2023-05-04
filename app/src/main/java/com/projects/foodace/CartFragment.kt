@@ -35,13 +35,13 @@ class CartFragment : NavHostFragment() {
             // TODO: dinamiche in base a qualcosa?
             val taxesAmt = 2.9
             val deliveryFeesAmt = 3.5
-            taxes.text = getString(R.string.taxes_tot, taxesAmt)
-            delFees.text = getString(R.string.del_fees_tot, deliveryFeesAmt)
+            taxesCost.text = getString(R.string.price_string, taxesAmt)
+            delCost.text = getString(R.string.price_string, deliveryFeesAmt)
             viewModel.totalCost.observe(viewLifecycleOwner) {
-                foodTot.text = getString(R.string.food_tot, it)
+                foodCost.text = getString(R.string.price_string, it)
 
                 val totalAmt = it + taxesAmt + deliveryFeesAmt
-                total.text = getString(R.string.total, totalAmt)
+                total.text = getString(R.string.price_string, totalAmt)
             }
         }
         return binding.root

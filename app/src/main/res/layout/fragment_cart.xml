@@ -8,6 +8,18 @@
     android:paddingBottom="56dp">
 
     <TextView
+        android:id="@+id/delCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/dark_blue"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/delLabel"
+        app:layout_constraintStart_toEndOf="@+id/delLabel"
+        app:layout_constraintTop_toTopOf="@+id/delLabel"
+        tools:text="$15.99" />
+
+    <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,41 +33,65 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/foodTot"
+        android:id="@+id/foodLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        android:text="@string/food_tot"
+        android:text="@string/food"
         android:textColor="@color/dark_blue"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        tools:text="Food: $15.99" />
+        tools:text="Food:" />
 
     <TextView
-        android:id="@+id/taxes"
+        android:id="@+id/foodCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/dark_blue"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/foodLabel"
+        app:layout_constraintStart_toEndOf="@+id/foodLabel"
+        app:layout_constraintTop_toTopOf="@+id/foodLabel"
+        tools:text="$15.99" />
+
+    <TextView
+        android:id="@+id/taxesCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textColor="@color/dark_blue"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/taxesLabel"
+        app:layout_constraintStart_toEndOf="@+id/taxesLabel"
+        app:layout_constraintTop_toTopOf="@+id/taxesLabel"
+        tools:text="$15.99" />
+
+    <TextView
+        android:id="@+id/taxesLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="@string/taxes_tot"
+        android:text="@string/taxes"
         android:textColor="@color/dark_blue"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/foodTot"
-        app:layout_constraintTop_toBottomOf="@+id/foodTot"
-        tools:text="Taxes: $15.99" />
+        app:layout_constraintStart_toStartOf="@+id/foodLabel"
+        app:layout_constraintTop_toBottomOf="@+id/foodLabel"
+        tools:text="Taxes:" />
 
     <TextView
-        android:id="@+id/delFees"
+        android:id="@+id/delLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="@string/del_fees_tot"
+        android:text="@string/del_fees"
         android:textColor="@color/dark_blue"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/taxes"
-        app:layout_constraintTop_toBottomOf="@+id/taxes"
-        tools:text="Delivery Fees: $15.99" />
+        app:layout_constraintStart_toStartOf="@+id/taxesLabel"
+        app:layout_constraintTop_toBottomOf="@+id/taxesLabel"
+        tools:text="Delivery Fees:" />
 
     <TextView
         android:id="@+id/total"
@@ -66,8 +102,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/orderBttn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/delFees"
-        app:layout_constraintTop_toTopOf="@+id/foodTot"
+        app:layout_constraintStart_toEndOf="@+id/delLabel"
+        app:layout_constraintTop_toTopOf="@+id/foodLabel"
         app:layout_constraintVertical_chainStyle="spread_inside"
         tools:text="Total: $15.99" />
 
@@ -81,7 +117,7 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/delFees"
+        app:layout_constraintBottom_toBottomOf="@+id/delLabel"
         app:layout_constraintEnd_toEndOf="@+id/total"
         app:layout_constraintStart_toStartOf="@+id/total"
         app:layout_constraintTop_toBottomOf="@+id/total" />
@@ -96,7 +132,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/delFees" />
+        app:layout_constraintTop_toBottomOf="@+id/delLabel" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/contentList"

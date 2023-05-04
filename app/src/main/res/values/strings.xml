@@ -20,9 +20,9 @@
     <string name="your_cart">Your Cart</string>
     <string name="removed_from_cart_snack_text">%s removed from cart.</string>
     <string name="order_recap">Order Recap</string>
-    <string name="food_tot">Food: $%1$.2f</string>
-    <string name="taxes_tot">Taxes: $%1$.2f</string>
-    <string name="del_fees_tot">Delivery Fees: $%1$.2f</string>
-    <string name="total">Total: $%1$.2f</string>
+    <string name="food">Food:</string>
+    <string name="taxes">Taxes:</string>
+    <string name="del_fees">Delivery Fees:</string>
+    <string name="total">Total:</string>
     <string name="order">Order</string>
 </resources>

@@ -22,6 +22,13 @@ interface FoodDao {
     @Query("""
         SELECT *
         FROM Food
+        WHERE Food.isFavorite
+    """)
+    fun getFavoriteFoods() : Flow<List<Food>>
+
+    @Query("""
+        SELECT *
+        FROM Food
         WHERE Food.name = :name
     """)
     fun getFood(name: String) : LiveData<Food?>

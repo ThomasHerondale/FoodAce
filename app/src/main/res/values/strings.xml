@@ -26,4 +26,5 @@
     <string name="total">Total: $%1$.2f</string>
     <string name="order">Order</string>
     <string name="cart_empty_str">Hey, go shopping! Your cart is empty!</string>
+    <string name="your_favorite_food">Your Favorite Food</string>
 </resources>

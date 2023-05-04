@@ -59,6 +59,7 @@ class CartFragment : NavHostFragment() {
             LinearLayoutManager(context, VERTICAL, false)
 
         viewModel.content.observe(viewLifecycleOwner) {
+            Log.v("CART", "Updating cart recyclerview")
             adapter.submitList(it)
         }
 
@@ -68,7 +69,7 @@ class CartFragment : NavHostFragment() {
             }
         }
 
-        viewModel.totalCost.observe(viewLifecycleOwner) { Log.d("CARTD", "Prezzo: $it") }
+        viewModel.totalCost.observe(viewLifecycleOwner) { Log.d("CART", "Price: $it") }
     }
 
     private fun showItemRemovedSnackbar(item: CartEntry) {

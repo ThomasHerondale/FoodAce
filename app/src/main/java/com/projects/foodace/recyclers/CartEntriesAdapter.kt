@@ -53,8 +53,16 @@ class CartEntriesAdapter(
         if (payloads.isEmpty())
             onBindViewHolder(holder, position)
         else {
-            val (_, quantity) = getItem(position)
-            holder.binding.quantityCart.text = "$quantity"
+            val payload = payloads[0] as Bundle
+            val quantity = payload.get("quantity") as Int
+            val totalPrice = payload.get("totalPrice") as Double
+
+            holder.binding.apply {
+                quantityCart.text = "$quantity"
+                totalPriceCart.text =
+                    root.resources.getString(R.string.price_string, totalPrice)
+            }
+
         }
     }
 
@@ -75,7 +83,10 @@ class CartEntriesAdapter(
             }
 
             override fun getChangePayload(oldItem: CartEntry, newItem: CartEntry): Any {
-                return Bundle().putInt("quantity", newItem.quantity)
+                return Bundle().apply {
+                    putInt("quantity", newItem.quantity)
+                    putDouble("totalPrice", newItem.quantity * newItem.food.price)
+                }
             }
         }
     }

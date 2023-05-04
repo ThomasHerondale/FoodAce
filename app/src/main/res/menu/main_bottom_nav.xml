@@ -6,6 +6,7 @@
         android:icon="@drawable/home_menu_item_selector"
         android:title="@string/home" />
     <item
+        android:id="@+id/favoritePage"
         android:icon="@drawable/favorite_menu_item_selector"
         android:title="@string/favorite" />
     <item

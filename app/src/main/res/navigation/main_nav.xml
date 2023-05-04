@@ -13,6 +13,9 @@
         <action
             android:id="@+id/homePage_to_cartPage"
             app:destination="@id/cartPage" />
+        <action
+            android:id="@+id/action_homePage_to_favoriteFragment"
+            app:destination="@id/favoritePage" />
     </fragment>
 
     <fragment
@@ -24,5 +27,22 @@
         <action
             android:id="@+id/cartPage_to_homePage"
             app:destination="@id/homePage" />
+        <action
+            android:id="@+id/action_cartPage_to_favoriteFragment"
+            app:destination="@id/favoritePage" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoritePage"
+        android:name="com.projects.foodace.FavoriteFragment"
+        android:label="Favorite page"
+        tools:layout="@layout/fragment_favorite">
+
+        <action
+            android:id="@+id/action_favoriteFragment_to_homePage"
+            app:destination="@id/homePage" />
+        <action
+            android:id="@+id/action_favoriteFragment_to_cartPage"
+            app:destination="@id/cartPage" />
     </fragment>
 </navigation>

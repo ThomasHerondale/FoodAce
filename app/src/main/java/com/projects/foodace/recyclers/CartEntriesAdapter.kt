@@ -1,6 +1,7 @@
 package com.projects.foodace.recyclers
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,14 +61,20 @@ class CartEntriesAdapter(
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<CartEntry>() {
             override fun areItemsTheSame(oldItem: CartEntry, newItem: CartEntry): Boolean {
-                return oldItem.food.name == newItem.food.name
+                val result = oldItem.food.name == newItem.food.name
+                Log.v("CARTDIFF",
+                    "Checking ${oldItem.food.name} vs ${newItem.food.name} - Result: $result")
+                return result
             }
 
             override fun areContentsTheSame(oldItem: CartEntry, newItem: CartEntry): Boolean {
-               return oldItem.quantity == newItem.quantity
+                val result = oldItem.quantity == newItem.quantity
+                Log.v("CARTDIFF",
+                    "Checking ${oldItem.food.name}, ${oldItem.quantity} vs ${newItem.food.name}, ${newItem.quantity} - Result: $result")
+                return result
             }
 
-            override fun getChangePayload(oldItem: CartEntry, newItem: CartEntry): Any? {
+            override fun getChangePayload(oldItem: CartEntry, newItem: CartEntry): Any {
                 return Bundle().putInt("quantity", newItem.quantity)
             }
         }

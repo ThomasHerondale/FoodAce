@@ -59,6 +59,10 @@ class FoodAceRepository(application: Application) {
         }
     }
 
+    fun getFavoriteFoods(): Flow<List<Food>> {
+        return foodDao!!.getFavoriteFoods()
+    }
+
     private fun asyncGetFood(name: String): Deferred<LiveData<Food?>> {
         return coroutineScope.async {
             return@async foodDao!!.getFood(name)

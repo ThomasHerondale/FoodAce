@@ -22,9 +22,6 @@ class CartViewModel : ViewModel() {
             _totalCost.value = it.sumOf { (food, quantity) -> food.price * quantity }
                 .roundToDecimalPlaces(2)
         }
-        // TODO: REMOVE!!!
-        for(food in popularFoodsList)
-            addItem(food, 1)
     }
 
     private fun addItem(food: Food, quantity: Int) {

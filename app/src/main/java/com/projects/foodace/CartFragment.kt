@@ -41,7 +41,7 @@ class CartFragment : NavHostFragment() {
                 foodCost.text = getString(R.string.price_string, it)
 
                 val totalAmt = it + taxesAmt + deliveryFeesAmt
-                total.text = getString(R.string.price_string, totalAmt)
+                total.text = getString(R.string.total, totalAmt)
             }
         }
         return binding.root

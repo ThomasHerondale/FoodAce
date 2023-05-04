@@ -41,6 +41,7 @@ class StartActivity : AppCompatActivity() {
                         intent.putExtra("password", password)
 
                         startActivity(intent)
+                        finish()
                     } else { // login failed
                         Log.i("LOGIN", "Login failed for $username - $password")
 

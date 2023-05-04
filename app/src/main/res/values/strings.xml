@@ -23,6 +23,6 @@
     <string name="food">Food:</string>
     <string name="taxes">Taxes:</string>
     <string name="del_fees">Delivery Fees:</string>
-    <string name="total">Total:</string>
+    <string name="total">Total: $%1$.2f</string>
     <string name="order">Order</string>
 </resources>

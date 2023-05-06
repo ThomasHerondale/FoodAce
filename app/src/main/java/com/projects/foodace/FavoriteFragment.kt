@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.coroutineScope
+import androidx.recyclerview.widget.GridLayoutManager
 import com.projects.foodace.databinding.FragmentFavoriteBinding
 import com.projects.foodace.model.FavoriteFoodsViewModel
+import com.projects.foodace.recyclers.FavoriteFoodsAdapter
+import kotlinx.coroutines.launch
 
 
 class FavoriteFragment : Fragment() {
@@ -20,5 +24,24 @@ class FavoriteFragment : Fragment() {
     ): View {
         binding = FragmentFavoriteBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initFavoritesList()
+    }
+
+    private fun initFavoritesList() {
+        val adapter = FavoriteFoodsAdapter()
+        binding.favoritesList.apply {
+            this.adapter = adapter
+            layoutManager = GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
+        }
+        lifecycle.coroutineScope.launch {
+            viewModel.favoriteFoods.collect {
+                adapter.submitList(it)
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.projects.foodace.model.Food
 import kotlinx.coroutines.flow.Flow
 
@@ -32,4 +33,7 @@ interface FoodDao {
         WHERE Food.name = :name
     """)
     fun getFood(name: String) : LiveData<Food?>
+
+    @Update
+    fun updateFood(food: Food)
 }

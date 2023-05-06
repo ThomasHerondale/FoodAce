@@ -1,12 +1,16 @@
 package com.projects.foodace
 
 import android.content.Intent
+import android.opengl.GLU
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.projects.foodace.database.FoodAceRepository
 import com.projects.foodace.databinding.ActivityFoodDetailsBinding
 import com.projects.foodace.model.Food
 import com.projects.foodace.model.FoodDetailsViewModel
@@ -17,6 +21,7 @@ class FoodDetailsActivity : AppCompatActivity() {
         intent.extras?.get("food") as Food, application
     ) }
     private lateinit var binding: ActivityFoodDetailsBinding
+    private val repository by lazy { FoodAceRepository(application) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +35,9 @@ class FoodDetailsActivity : AppCompatActivity() {
                 .load(it.img)
                 .transform(RoundedCorners(24))
                 .into(binding.foodImgDet)
+            binding.favoriteBttn.setImageDrawable(
+                AppCompatResources.getDrawable(this, favoriteButtonImg())
+            )
         }
 
         viewModel.quantity.observe(this) {
@@ -56,6 +64,14 @@ class FoodDetailsActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.favoriteBttn.setOnClickListener {
+            repository.setFavorite(viewModel.food.value!!)
+            Log.d("FAV", "${viewModel.food.value}")
+            binding.favoriteBttn.setImageDrawable(
+                AppCompatResources.getDrawable(this, favoriteButtonImg())
+            )
+        }
+
         setContentView(binding.root)
 
         onBackPressedDispatcher.addCallback(this) {
@@ -67,4 +83,10 @@ class FoodDetailsActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    private fun favoriteButtonImg() =
+        if (viewModel.food.value!!.isFavorite)
+            R.drawable.star_icon_filled
+        else
+            R.drawable.star_icon_outlined
 }

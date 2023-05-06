@@ -28,7 +28,7 @@ data class Food(
     @ColumnInfo(name = "isPopular")
     val isPopular: Boolean,
     @ColumnInfo(name = "isFavorite")
-    val isFavorite: Boolean
+    var isFavorite: Boolean
 ) : Parcelable {
     companion object {
         val popularFoodsList = listOf(

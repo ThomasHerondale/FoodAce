@@ -1,8 +1,10 @@
 package com.projects.foodace.recyclers
 
+import android.graphics.Outline
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewOutlineProvider
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
@@ -36,6 +38,9 @@ class PopularFoodsAdapter(private val detailsActivityLauncher: ActivityResultLau
             .load(food.img)
             .transform(RoundedCorners(16))
             .into(holder.binding.foodImg)
+
+        // Workaround per avere il bordo solo se il cibo è nei preferiti
+        holder.binding.foodCard.isSelected = food.isFavorite
 
         holder.itemView.setOnClickListener {
             detailsActivityLauncher.launch(getItem(position))

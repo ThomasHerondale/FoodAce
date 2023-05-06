@@ -1,6 +1,5 @@
 package com.projects.foodace
 
-import android.graphics.Rect
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,11 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.GridLayoutManager.DEFAULT_SPAN_COUNT
-import androidx.recyclerview.widget.RecyclerView
 import com.projects.foodace.databinding.FragmentFavoriteBinding
+import com.projects.foodace.model.CartViewModel
 import com.projects.foodace.model.FavoriteFoodsViewModel
 import com.projects.foodace.recyclers.FavoriteFoodsAdapter
 import kotlinx.coroutines.launch
@@ -20,7 +17,13 @@ import kotlinx.coroutines.launch
 
 class FavoriteFragment : Fragment() {
     private lateinit var binding: FragmentFavoriteBinding
-    private val viewModel: FavoriteFoodsViewModel by activityViewModels()
+    private val favoriteFoodsViewModel: FavoriteFoodsViewModel by activityViewModels()
+    private val cartViewModel: CartViewModel by activityViewModels()
+
+    private val detailsActivityLauncher = registerForActivityResult(AddToCartContract()) {
+        if (it.quantity != 0)
+            cartViewModel.addItem(it)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +40,7 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun initFavoritesList() {
-        val adapter = FavoriteFoodsAdapter()
+        val adapter = FavoriteFoodsAdapter(detailsActivityLauncher)
         binding.favoritesList.apply {
             this.adapter = adapter
             layoutManager = GridLayoutManager(
@@ -48,7 +51,7 @@ class FavoriteFragment : Fragment() {
             )
         }
         lifecycle.coroutineScope.launch {
-            viewModel.favoriteFoods.collect {
+            favoriteFoodsViewModel.favoriteFoods.collect {
                 adapter.submitList(it)
             }
         }

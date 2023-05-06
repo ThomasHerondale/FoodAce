@@ -3,6 +3,7 @@ package com.projects.foodace.recyclers
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,8 @@ import com.projects.foodace.R
 import com.projects.foodace.databinding.FavoriteFoodViewHolderBinding
 import com.projects.foodace.model.Food
 
-class FavoriteFoodsAdapter : ListAdapter<Food, FavoriteFoodsAdapter.ViewHolder>(diffCallback) {
+class FavoriteFoodsAdapter(private val detailsActivityLauncher: ActivityResultLauncher<Food>)
+    : ListAdapter<Food, FavoriteFoodsAdapter.ViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -29,6 +31,10 @@ class FavoriteFoodsAdapter : ListAdapter<Food, FavoriteFoodsAdapter.ViewHolder>(
                 .load(food.img)
                 .transform(RoundedCorners(16))
                 .into(foodImg)
+
+            foodCard.setOnClickListener {
+                detailsActivityLauncher.launch(food)
+            }
         }
     }
 

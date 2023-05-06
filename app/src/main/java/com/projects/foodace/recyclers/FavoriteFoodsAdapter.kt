@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.projects.foodace.R
 import com.projects.foodace.databinding.FavoriteFoodViewHolderBinding
 import com.projects.foodace.model.Food
@@ -26,6 +27,7 @@ class FavoriteFoodsAdapter : ListAdapter<Food, FavoriteFoodsAdapter.ViewHolder>(
 
             Glide.with(holder.itemView)
                 .load(food.img)
+                .transform(RoundedCorners(16))
                 .into(foodImg)
         }
     }

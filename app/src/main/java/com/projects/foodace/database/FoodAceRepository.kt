@@ -3,16 +3,19 @@ package com.projects.foodace.database
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.projects.foodace.model.CartEntry
 import com.projects.foodace.model.Food
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 class FoodAceRepository(application: Application) {
     private var userDao: UserDao?
     private var foodDao: FoodDao?
+    private var cartDao: CartDao?
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
 
@@ -20,6 +23,7 @@ class FoodAceRepository(application: Application) {
         val database = FoodAceDatabase.getDatabase(application)
         userDao = database?.userDao()
         foodDao = database?.foodDao()
+        cartDao = database?.cartDao()
     }
 
     // User methods
@@ -62,6 +66,14 @@ class FoodAceRepository(application: Application) {
     private fun asyncGetFood(name: String): Deferred<LiveData<Food?>> {
         return coroutineScope.async {
             return@async foodDao!!.getFood(name)
+        }
+    }
+
+    fun insertCart(username: String, cartContent: List<CartEntry>) {
+        coroutineScope.launch {
+            cartContent.forEach {
+                cartDao!!.insertCartEntry(username, it.food.name, it.quantity)
+            }
         }
     }
 }

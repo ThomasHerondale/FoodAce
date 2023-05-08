@@ -13,10 +13,18 @@ interface CartDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCartEntry(entry: UserCartEntry)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCartEntries(entries: List<UserCartEntry>)
+
     @Query("""
         SELECT * 
         FROM Cart JOIN Food ON Cart.name = Food.name
         WHERE Cart.username = :username
     """)
     fun getCart(username: String): Flow<List<UserCartEntry>>
+
+    @Query("""
+        DELETE FROM Cart WHERE Cart.username = :username
+    """)
+    fun clearCart(username: String)
 }

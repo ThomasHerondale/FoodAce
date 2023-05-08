@@ -74,9 +74,8 @@ class FoodAceRepository(application: Application) {
 
     fun storeCart(username: String, cartContent: List<CartEntry>) {
         coroutineScope.launch {
-            cartContent.forEach {
-                cartDao!!.insertCartEntry(UserCartEntry(it, username))
-            }
+            cartDao!!.clearCart(username)
+            cartDao!!.insertCartEntries(cartContent.map { UserCartEntry(it, username) })
         }
     }
 

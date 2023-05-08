@@ -27,6 +27,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
     private val _totalCost = MediatorLiveData<Double>()
     val totalCost: LiveData<Double> = _totalCost
 
+    private val repository = FoodAceRepository(application)
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     init {
@@ -37,8 +38,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
         val username = (application as LoggedApplication).username!!
 
         coroutineScope.launch {
-            FoodAceRepository(application)
-                .restoreCart(username).collect {content.postValue(it)}
+            repository.restoreCart(username).collect {content.postValue(it)}
         }
     }
 
@@ -108,6 +108,9 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
         super.onCleared()
         foodRemoval.value = null
         coroutineScope.cancel()
+
+        val username = getApplication<LoggedApplication>().username!!
+        repository.storeCart(username, content.value!!)
     }
 
     private fun findEntry(food: Food) =

@@ -16,21 +16,16 @@ import kotlinx.coroutines.launch
 
 class StartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStartBinding
+    private lateinit var loginManager: LoginManager
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
     private val repository by lazy { FoodAceRepository(application) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val sharedPrefs = getSharedPreferences(
-            "loginPrefs", MODE_PRIVATE
-        )
+        loginManager = (application as LoggedApplication).loginManager
 
-        val loggedUsername: String? =
-            if (sharedPrefs.getBoolean("keepLogin", false))
-                sharedPrefs.getString("username", null)
-            else
-                (application as LoggedApplication).username
+        val loggedUsername = loginManager.loggedUsername
 
         if (loggedUsername != null) {
             val intent = Intent(applicationContext, MainActivity::class.java)
@@ -42,6 +37,12 @@ class StartActivity : AppCompatActivity() {
 
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Manage the user wanting to be kept logged in
+        binding.keepLoginToggle.setOnCheckedChangeListener { _, isChecked ->
+            loginManager.setKeepLogin(isChecked)
+        }
+
         binding.loginButton.setOnClickListener {
             val username = "${binding.usernameField.text}"
             val password = "${binding.passwordField.text}"
@@ -59,18 +60,7 @@ class StartActivity : AppCompatActivity() {
                     intent.putExtra("username", username)
 
                     // Set the session for the user
-                    (application as LoggedApplication).username = username
-
-                    // Manage the user wanting to be kept logged in
-                    val prefsEditor = getSharedPreferences(
-                        "loginPrefs", MODE_PRIVATE
-                    ).edit()
-                    prefsEditor.putBoolean("keepLogin", binding.keepLoginToggle.isChecked)
-                    if (binding.keepLoginToggle.isChecked)
-                        prefsEditor.putString("username", username)
-                    else
-                        prefsEditor.remove("username")
-                    prefsEditor.apply()
+                    loginManager.loginUsername(username)
 
                     startActivity(intent)
                     finish()

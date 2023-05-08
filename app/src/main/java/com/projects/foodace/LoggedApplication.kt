@@ -5,10 +5,10 @@ import com.projects.foodace.database.User
 
 class LoggedApplication(
 ) : Application() {
-    var username: String? = null
-        set(value) =
-            if (username != null)
-                throw IllegalStateException("Login is already registered.")
-            else
-                field = value
+    lateinit var loginManager: LoginManager
+
+    override fun onCreate() {
+        super.onCreate()
+        loginManager = LoginManager(this)
+    }
 }

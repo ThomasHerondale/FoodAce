@@ -1,7 +1,5 @@
 package com.projects.foodace
 
-import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +10,6 @@ import androidx.lifecycle.MutableLiveData
 import com.projects.foodace.database.FoodAceRepository
 import com.projects.foodace.database.User
 import com.projects.foodace.databinding.FragmentAccountBinding
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,14 +30,7 @@ class AccountFragment : Fragment() {
         initAccountInfo()
 
         binding.logoutBttn.setOnClickListener {
-            // Invalidate logged username in application and shared preferences
-            (requireActivity().application as LoggedApplication).username = null
-
-            val sharedPrefsEditor = requireActivity().getSharedPreferences(
-                "loginPrefs", MODE_PRIVATE
-            ).edit()
-            sharedPrefsEditor.clear()
-            sharedPrefsEditor.apply()
+            (requireActivity().application as LoggedApplication).loginManager.logout()
 
             val intent = Intent(context, StartActivity::class.java)
             startActivity(intent)

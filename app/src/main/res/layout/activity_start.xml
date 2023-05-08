@@ -65,7 +65,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:checked="true"
         android:text="@string/keep_me_logged"
         android:textColor="@color/white"
         android:textStyle="bold"

@@ -27,8 +27,7 @@ class MainActivity : FragmentActivity() {
 
     private fun setupAccountFragment() {
         val fragment = AccountFragment.newInstance(
-            intent.getStringExtra("username")!!,
-            intent.getStringExtra("password")!!
+            intent.getStringExtra("username")!!
         )
         supportFragmentManager
             .beginTransaction()

@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 
 // Fragment parameters keys
 const val USERNAME_PARAM = "username"
-const val PASSWORD_PARAM = "password"
 
 @AndroidEntryPoint
 class AccountFragment : Fragment() {
@@ -36,11 +35,10 @@ class AccountFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(username: String, password: String) =
+        fun newInstance(username: String) =
             AccountFragment().apply {
                 arguments = Bundle().apply {
                     putString(USERNAME_PARAM, username)
-                    putString(PASSWORD_PARAM, password)
                 }
             }
     }

@@ -1,6 +1,8 @@
 package com.projects.foodace
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -20,7 +22,16 @@ class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val loggedUsername = (application as LoggedApplication).username
+        val sharedPrefs = getSharedPreferences(
+            "loginPrefs", MODE_PRIVATE
+        )
+
+        val loggedUsername: String? =
+            if (sharedPrefs.getBoolean("keepLogin", false))
+                sharedPrefs.getString("username", null)
+            else
+                (application as LoggedApplication).username
+
         if (loggedUsername != null) {
             val intent = Intent(applicationContext, MainActivity::class.java)
             intent.putExtra("username", loggedUsername)
@@ -31,7 +42,6 @@ class StartActivity : AppCompatActivity() {
 
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.loginButton.setOnClickListener {
             val username = "${binding.usernameField.text}"
             val password = "${binding.passwordField.text}"
@@ -50,6 +60,17 @@ class StartActivity : AppCompatActivity() {
 
                     // Set the session for the user
                     (application as LoggedApplication).username = username
+
+                    // Manage the user wanting to be kept logged in
+                    val prefsEditor = getSharedPreferences(
+                        "loginPrefs", MODE_PRIVATE
+                    ).edit()
+                    prefsEditor.putBoolean("keepLogin", binding.keepLoginToggle.isChecked)
+                    if (binding.keepLoginToggle.isChecked)
+                        prefsEditor.putString("username", username)
+                    else
+                        prefsEditor.remove("username")
+                    prefsEditor.apply()
 
                     startActivity(intent)
                     finish()

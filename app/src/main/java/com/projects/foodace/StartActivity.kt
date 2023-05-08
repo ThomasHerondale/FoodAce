@@ -17,44 +17,53 @@ class StartActivity : AppCompatActivity() {
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
     private val repository by lazy { FoodAceRepository(application) }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            binding = ActivityStartBinding.inflate(layoutInflater)
-            setContentView(binding.root)
+        val loggedUsername = (application as LoggedApplication).username
+        if (loggedUsername != null) {
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            intent.putExtra("username", loggedUsername)
 
-            binding.loginButton.setOnClickListener {
-                val username = "${binding.usernameField.text}"
-                val password = "${binding.passwordField.text}"
+            startActivity(intent)
+            finish()
+        }
 
-                val isLoginOkay = MutableLiveData<Boolean>()
-                coroutineScope.launch {
-                    isLoginOkay.postValue(repository.checkCredentials(username, password))
+        binding = ActivityStartBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.loginButton.setOnClickListener {
+            val username = "${binding.usernameField.text}"
+            val password = "${binding.passwordField.text}"
+
+            val isLoginOkay = MutableLiveData<Boolean>()
+            coroutineScope.launch {
+                isLoginOkay.postValue(repository.checkCredentials(username, password))
+            }
+
+            isLoginOkay.observe(this) {
+                if (isLoginOkay.value!!) { // login succeeded
+                    Log.i("LOGIN", "Logging user $username")
+
+                    val intent = Intent(applicationContext, MainActivity::class.java)
+                    intent.putExtra("username", username)
+
+                    // Set the session for the user
+                    (application as LoggedApplication).username = username
+
+                    startActivity(intent)
+                    finish()
+                } else { // login failed
+                    Log.i("LOGIN", "Login failed for $username - $password")
+
+                    Toast.makeText(
+                        applicationContext,
+                        R.string.login_failed_msg,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-
-                isLoginOkay.observe(this) {
-                    if (isLoginOkay.value!!) { // login succeeded
-                        Log.i("LOGIN", "Logging user $username")
-
-                        val intent = Intent(applicationContext, MainActivity::class.java)
-                        intent.putExtra("username", username)
-                        intent.putExtra("password", password)
-
-                        startActivity(intent)
-                        finish()
-                    } else { // login failed
-                        Log.i("LOGIN", "Login failed for $username - $password")
-
-                        Toast.makeText(
-                            applicationContext,
-                            R.string.login_failed_msg,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-
-
             }
         }
+    }
 
 }

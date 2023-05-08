@@ -43,6 +43,7 @@ class CartFragment : NavHostFragment() {
                 val totalAmt = it + taxesAmt + deliveryFeesAmt
                 total.text = getString(R.string.total, totalAmt)
             }
+            orderBttn.isEnabled = viewModel.content.value!!.isNotEmpty()
         }
         return binding.root
     }

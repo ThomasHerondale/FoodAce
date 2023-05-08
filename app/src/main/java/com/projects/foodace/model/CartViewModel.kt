@@ -22,7 +22,7 @@ import kotlin.coroutines.coroutineContext
 
 class CartViewModel(application: Application) : AndroidViewModel(application) {
     val content = MutableLiveData<List<CartEntry>>(listOf())
-    private val _foodRemoval = MutableLiveData<Event<CartEntry?>>()
+    private val _foodRemoval = MutableLiveData<Event<Pair<CartEntry?, Int>>>()
     val foodRemoval = _foodRemoval
     private val _totalCost = MediatorLiveData<Double>()
     val totalCost: LiveData<Double> = _totalCost
@@ -65,6 +65,16 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
 
     fun addOneOf(food: Food) { addItem(food, 1)}
 
+    fun addItem(entry: CartEntry, idx: Int) {
+        Log.i("CART", "Adding to cart ${entry.quantity} of ${entry.food.name}")
+
+        val newContent = content.value!!.toMutableList()
+
+        newContent.add(idx, entry)
+        content.value = newContent
+        Log.v("CART", "Cart is now ${content.value}")
+    }
+
     fun removeOneOf(food: Food) {
         val newContent = content.value!!.toMutableList()
 
@@ -76,7 +86,9 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
             if (newEntry.quantity == 0) {
                 // If quantity becomes 0, item has to be removed
                 newContent.removeAt(idx)
-                _foodRemoval.value = Event(CartEntry(food, content.value!![idx].quantity))
+                _foodRemoval.value = Event(
+                    CartEntry(food, content.value!![idx].quantity) to idx
+                )
             } else {
                 newContent.removeAt(idx)
                 newContent.add(idx, newEntry)
@@ -96,7 +108,9 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
             throw IllegalArgumentException("${food.name} is not in cart and cannot be removed.")
         else {
             newContent.removeAt(idx)
-            _foodRemoval.value = Event(CartEntry(food, content.value!![idx].quantity))
+            _foodRemoval.value = Event(
+                CartEntry(food, content.value!![idx].quantity) to idx
+            )
         }
 
         content.value = newContent

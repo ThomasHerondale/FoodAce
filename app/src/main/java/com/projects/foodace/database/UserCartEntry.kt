@@ -1,10 +1,11 @@
 package com.projects.foodace.database
 
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
-import androidx.room.Relation
+import com.projects.foodace.model.CartEntry
 import com.projects.foodace.model.Food
 
 @Entity(
@@ -19,14 +20,22 @@ import com.projects.foodace.model.Food
         ForeignKey(
             entity = Food::class,
             parentColumns = ["name"],
-            childColumns = ["foodName"],
+            childColumns = ["name"],
             onDelete = ForeignKey.CASCADE
         )
     ],
-    primaryKeys = ["username", "foodName"]
+    primaryKeys = ["username", "name"],
+    indices = [Index("name")]
 )
 class UserCartEntry (
     @ColumnInfo(name = "username") val username: String,
-    @ColumnInfo(name = "foodName") val foodName: String,
+    @Embedded val food: Food,
     @ColumnInfo(name = "quantity") val quantity: Int
-)
+) {
+    constructor(entry: CartEntry, username: String) :
+            this(username, entry.food, entry.quantity)
+
+    override fun toString(): String {
+        return "UserCartEntry(username='$username', food=$food, quantity=$quantity)"
+    }
+}

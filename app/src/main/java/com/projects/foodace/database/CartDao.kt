@@ -1,13 +1,22 @@
 package com.projects.foodace.database
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.projects.foodace.model.Food
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CartDao {
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCartEntry(entry: UserCartEntry)
+
     @Query("""
-        INSERT OR REPLACE INTO Cart VALUES (:username, :foodName, :quantity)
+        SELECT * 
+        FROM Cart JOIN Food ON Cart.name = Food.name
+        WHERE Cart.username = :username
     """)
-    fun insertCartEntry(username: String, foodName: String, quantity: Int)
+    fun getCart(username: String): Flow<List<UserCartEntry>>
 }

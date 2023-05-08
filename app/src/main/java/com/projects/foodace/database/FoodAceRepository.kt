@@ -10,6 +10,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class FoodAceRepository(application: Application) {
@@ -69,11 +70,19 @@ class FoodAceRepository(application: Application) {
         }
     }
 
-    fun insertCart(username: String, cartContent: List<CartEntry>) {
+    // Cart methods
+
+    fun storeCart(username: String, cartContent: List<CartEntry>) {
         coroutineScope.launch {
             cartContent.forEach {
-                cartDao!!.insertCartEntry(username, it.food.name, it.quantity)
+                cartDao!!.insertCartEntry(UserCartEntry(it, username))
             }
+        }
+    }
+
+    fun restoreCart(username: String): Flow<List<CartEntry>> {
+        return cartDao!!.getCart(username).map { userCartEntries ->
+            userCartEntries.map { CartEntry(it) }
         }
     }
 }

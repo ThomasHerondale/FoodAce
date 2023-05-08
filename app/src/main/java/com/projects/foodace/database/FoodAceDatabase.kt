@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [(User::class), (Food::class), (UserCartEntry::class)], version = 4)
+@Database(entities = [(User::class), (Food::class), (UserCartEntry::class)], version = 5)
 internal abstract class FoodAceDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun foodDao(): FoodDao

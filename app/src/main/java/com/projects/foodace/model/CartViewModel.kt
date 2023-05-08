@@ -1,26 +1,44 @@
 package com.projects.foodace.model
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.projects.foodace.Event
+import com.projects.foodace.LoggedApplication
+import com.projects.foodace.database.FoodAceRepository
 import com.projects.foodace.model.Food.Companion.popularFoodsList
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.math.RoundingMode
+import kotlin.coroutines.coroutineContext
 
-class CartViewModel : ViewModel() {
+class CartViewModel(application: Application) : AndroidViewModel(application) {
     val content = MutableLiveData<List<CartEntry>>(listOf())
     private val _foodRemoval = MutableLiveData<Event<CartEntry?>>()
     val foodRemoval = _foodRemoval
     private val _totalCost = MediatorLiveData<Double>()
     val totalCost: LiveData<Double> = _totalCost
 
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+
     init {
         _totalCost.addSource(content) {
             _totalCost.value = it.sumOf { (food, quantity) -> food.price * quantity }
                 .roundToDecimalPlaces(2)
+        }
+        val username = (application as LoggedApplication).username!!
+
+        coroutineScope.launch {
+            FoodAceRepository(application)
+                .restoreCart(username).collect {content.postValue(it)}
         }
     }
 
@@ -89,6 +107,7 @@ class CartViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         foodRemoval.value = null
+        coroutineScope.cancel()
     }
 
     private fun findEntry(food: Food) =

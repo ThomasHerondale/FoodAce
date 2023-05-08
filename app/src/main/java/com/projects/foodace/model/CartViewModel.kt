@@ -97,5 +97,5 @@ class CartViewModel : ViewModel() {
 
 fun Double.roundToDecimalPlaces(places: Int) =
     this.toBigDecimal()
-        .setScale(2, RoundingMode.FLOOR)
+        .setScale(places, RoundingMode.FLOOR)
         .toDouble()

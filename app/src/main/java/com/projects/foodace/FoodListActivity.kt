@@ -27,6 +27,8 @@ class FoodListActivity : AppCompatActivity() {
 
         if (intent.action == Intent.ACTION_SEARCH)
             intent.getStringExtra(SearchManager.QUERY)?.also { viewModel.getFoods(it) }
+        else
+            TODO()
 
         initFoodList()
     }

@@ -34,6 +34,15 @@ interface FoodDao {
     """)
     fun getFood(name: String) : LiveData<Food?>
 
+    @Query("""
+        SELECT *
+        FROM Food
+        WHERE LOWER(Food.name) LIKE LOWER(:query) 
+    """)
+    // Query is the user's query with '%' at start and end
+    // LOWER in both strings to ignore case
+    fun searchFoods(query: String) : Flow<List<Food>>
+
     @Update
     fun updateFood(food: Food)
 }

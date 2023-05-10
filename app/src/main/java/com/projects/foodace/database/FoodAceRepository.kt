@@ -52,6 +52,11 @@ class FoodAceRepository(application: Application) {
         return foodDao!!.getPopularFoods()
     }
 
+    fun searchFoods(query: String): Flow<List<Food>> {
+        val dbQuery = "%$query%"
+        return foodDao!!.searchFoods(dbQuery)
+    }
+
     suspend fun getFood(name: String): LiveData<Food> {
         println("called get")
         return Transformations.map(asyncGetFood(name).await()) {

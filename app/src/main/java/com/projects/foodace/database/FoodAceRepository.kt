@@ -9,6 +9,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 class FoodAceRepository(application: Application) {
     private var userDao: UserDao?
@@ -59,9 +60,20 @@ class FoodAceRepository(application: Application) {
         }
     }
 
+    fun getFavoriteFoods(): Flow<List<Food>> {
+        return foodDao!!.getFavoriteFoods()
+    }
+
     private fun asyncGetFood(name: String): Deferred<LiveData<Food?>> {
         return coroutineScope.async {
             return@async foodDao!!.getFood(name)
+        }
+    }
+
+    fun setFavorite(food: Food) {
+        food.isFavorite = !food.isFavorite
+        coroutineScope.launch {
+            foodDao!!.updateFood(food)
         }
     }
 }

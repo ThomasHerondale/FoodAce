@@ -1,14 +1,10 @@
 package com.projects.foodace
 
-import android.app.Activity.RESULT_OK
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +13,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.projects.foodace.databinding.FragmentCartBinding
 import com.projects.foodace.model.CartEntry
 import com.projects.foodace.model.CartViewModel
-import com.projects.foodace.model.Food
 import com.projects.foodace.recyclers.CartEntriesAdapter
 
 class CartFragment : NavHostFragment() {
@@ -91,19 +86,3 @@ class CartFragment : NavHostFragment() {
     }
 }
 
-class AddToCartContract : ActivityResultContract<Food, CartEntry>() {
-    override fun createIntent(context: Context, input: Food) =
-        Intent(context, FoodDetailsActivity::class.java).apply {
-            putExtra("food", input)
-        }
-
-    override fun parseResult(resultCode: Int, intent: Intent?): CartEntry {
-        return if (resultCode == RESULT_OK) {
-            val quantity = intent?.extras!!.get("quantity") as Int
-            val food = intent.extras!!.get("food") as Food
-            CartEntry(food, quantity)
-        } else
-            throw IllegalStateException("ShowDetailsActivity did not provide quantity.")
-    }
-
-}

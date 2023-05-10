@@ -1,5 +1,8 @@
 package com.projects.foodace
 
+import android.app.SearchManager
+import android.content.ComponentName
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -39,6 +42,14 @@ class HomeFragment : NavHostFragment() {
 
         initCategoriesList()
         initPopularFoodsList()
+
+        val searchManager = requireActivity()
+            .getSystemService(Context.SEARCH_SERVICE) as SearchManager
+
+        binding.mainSearchBar.
+            setSearchableInfo(searchManager.getSearchableInfo(
+                ComponentName(requireContext(), FoodListActivity::class.java))
+            )
     }
 
     private fun initCategoriesList() {

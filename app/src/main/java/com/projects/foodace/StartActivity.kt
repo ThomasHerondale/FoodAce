@@ -1,6 +1,8 @@
 package com.projects.foodace
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -14,13 +16,17 @@ import kotlinx.coroutines.launch
 
 class StartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStartBinding
+    private lateinit var loginManager: LoginManager
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
     private val repository by lazy { FoodAceRepository(application) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val loggedUsername = (application as LoggedApplication).username
+        loginManager = (application as LoggedApplication).loginManager
+
+        val loggedUsername = loginManager.loggedUsername
+
         if (loggedUsername != null) {
             val intent = Intent(applicationContext, MainActivity::class.java)
             intent.putExtra("username", loggedUsername)
@@ -31,6 +37,11 @@ class StartActivity : AppCompatActivity() {
 
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Manage the user wanting to be kept logged in
+        binding.keepLoginToggle.setOnCheckedChangeListener { _, isChecked ->
+            loginManager.setKeepLogin(isChecked)
+        }
 
         binding.loginButton.setOnClickListener {
             val username = "${binding.usernameField.text}"
@@ -49,7 +60,7 @@ class StartActivity : AppCompatActivity() {
                     intent.putExtra("username", username)
 
                     // Set the session for the user
-                    (application as LoggedApplication).username = username
+                    loginManager.loginUsername(username)
 
                     startActivity(intent)
                     finish()

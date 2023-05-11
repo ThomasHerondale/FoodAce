@@ -38,6 +38,7 @@ class CartFragment : NavHostFragment() {
                 val totalAmt = it + taxesAmt + deliveryFeesAmt
                 total.text = getString(R.string.total, totalAmt)
             }
+            orderBttn.isEnabled = viewModel.content.value!!.isNotEmpty()
         }
         return binding.root
     }
@@ -68,10 +69,11 @@ class CartFragment : NavHostFragment() {
         viewModel.totalCost.observe(viewLifecycleOwner) { Log.d("CART", "Price: $it") }
     }
 
-    private fun showItemRemovedSnackbar(item: CartEntry) {
+    private fun showItemRemovedSnackbar(removalInfo: Pair<CartEntry?, Int>) {
+        val (item, idx) = removalInfo
         Snackbar.make(
             requireView(),
-            getString(R.string.removed_from_cart_snack_text, item.food.name),
+            getString(R.string.removed_from_cart_snack_text, item?.food?.name),
             Snackbar.LENGTH_SHORT
         ).apply {
             setAnchorView(R.id.navBar)
@@ -79,7 +81,7 @@ class CartFragment : NavHostFragment() {
             setBackgroundTint(resources.getColor(R.color.dark_blue))
 
             setAction("Undo") {
-                viewModel.addItem(item)
+                viewModel.addItem(item!!, idx)
             }
         }.show()
 

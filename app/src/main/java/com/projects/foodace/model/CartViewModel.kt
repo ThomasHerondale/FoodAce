@@ -34,7 +34,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
             _totalCost.value = it.sumOf { (food, quantity) -> food.price * quantity }
                 .roundToDecimalPlaces(2)
         }
-        val username = (application as LoggedApplication).username!!
+        val username = (application as LoggedApplication).loginManager.loggedUsername!!
 
         coroutineScope.launch {
             repository.restoreCart(username).collect {content.postValue(it)}
@@ -122,7 +122,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
         foodRemoval.value = null
         coroutineScope.cancel()
 
-        val username = getApplication<LoggedApplication>().username!!
+        val username = getApplication<LoggedApplication>().loginManager.loggedUsername!!
         repository.storeCart(username, content.value!!)
     }
 

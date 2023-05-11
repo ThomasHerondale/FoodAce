@@ -25,6 +25,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
+                android:maxEms="7"
+                android:textAlignment="center"
                 android:textSize="32sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/favoriteBttn"
@@ -32,7 +34,7 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Pizza" />
+                tools:text="BBQ Pulled Pork Sandwich" />
 
             <ImageButton
                 android:id="@+id/favoriteBttn"

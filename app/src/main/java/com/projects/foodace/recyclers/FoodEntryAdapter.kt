@@ -3,6 +3,7 @@ package com.projects.foodace.recyclers
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -13,7 +14,8 @@ import com.projects.foodace.R
 import com.projects.foodace.databinding.FoodListViewHolderBinding
 import com.projects.foodace.model.Food
 
-class FoodEntryAdapter : ListAdapter<Food, FoodEntryAdapter.ViewHolder>(diffCallback) {
+class FoodEntryAdapter(private val detailsActivityLauncher: ActivityResultLauncher<Food>)
+    : ListAdapter<Food, FoodEntryAdapter.ViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -29,8 +31,10 @@ class FoodEntryAdapter : ListAdapter<Food, FoodEntryAdapter.ViewHolder>(diffCall
                 favIcon.visibility = View.GONE
             foodNameEntry.text = food.name
             foodDescrEntry.text = food.description
+
             val color = ContextCompat.getColor(holder.itemView.context, food.category.bgoundColor)
             foodCardEntry.setCardBackgroundColor(color)
+            foodCardEntry.setOnClickListener { detailsActivityLauncher.launch(food) }
 
             Glide.with(holder.itemView)
                 .load(food.img)

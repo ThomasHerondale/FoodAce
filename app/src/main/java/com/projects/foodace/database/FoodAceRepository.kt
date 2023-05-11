@@ -2,7 +2,7 @@ package com.projects.foodace.database
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.projects.foodace.model.Food
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
@@ -59,7 +59,7 @@ class FoodAceRepository(application: Application) {
 
     suspend fun getFood(name: String): LiveData<Food> {
         println("called get")
-        return Transformations.map(asyncGetFood(name).await()) {
+        return asyncGetFood(name).await().map {
             println(it)
             it ?: throw IllegalStateException("Food not found to show details.")
         }

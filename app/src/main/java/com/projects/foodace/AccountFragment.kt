@@ -1,5 +1,6 @@
 package com.projects.foodace
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,16 +10,13 @@ import androidx.lifecycle.MutableLiveData
 import com.projects.foodace.database.FoodAceRepository
 import com.projects.foodace.database.User
 import com.projects.foodace.databinding.FragmentAccountBinding
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 // Fragment parameters keys
 const val USERNAME_PARAM = "username"
-const val PASSWORD_PARAM = "password"
 
-@AndroidEntryPoint
 class AccountFragment : Fragment() {
 
     private lateinit var binding: FragmentAccountBinding
@@ -31,16 +29,24 @@ class AccountFragment : Fragment() {
 
         initAccountInfo()
 
+        binding.logoutBttn.setOnClickListener {
+            (requireActivity().application as FoodAceApplication).loginManager.logout()
+
+            val intent = Intent(context, StartActivity::class.java)
+            startActivity(intent)
+
+            requireActivity().finish()
+        }
+
         return binding.root
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(username: String, password: String) =
+        fun newInstance(username: String) =
             AccountFragment().apply {
                 arguments = Bundle().apply {
                     putString(USERNAME_PARAM, username)
-                    putString(PASSWORD_PARAM, password)
                 }
             }
     }

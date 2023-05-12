@@ -27,4 +27,5 @@
     <string name="order">Order</string>
     <string name="cart_empty_str">Hey, go shopping! Your cart is empty!</string>
     <string name="your_favorite_food">Your Favorite Food</string>
+    <string name="keep_me_logged">Keep me logged in</string>
 </resources>

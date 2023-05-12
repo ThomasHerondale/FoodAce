@@ -19,8 +19,11 @@ class FoodListViewModel(application: Application) : AndroidViewModel(application
     val foods: LiveData<List<Food>> = _foods
 
 
-    fun getFoods(query: String) {
-        foodsFlow = repository.searchFoods(query)
-        coroutineScope.launch { foodsFlow.collect { _foods.postValue(it)} }
+    fun getFoods(
+        query: String? = null,
+        category: Category? = null,
+    ) {
+        foodsFlow = repository.searchFoods(query, category)
+        coroutineScope.launch { foodsFlow.collect { _foods.postValue(it) } }
     }
 }

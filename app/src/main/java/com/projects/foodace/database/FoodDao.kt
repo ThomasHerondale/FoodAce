@@ -37,11 +37,12 @@ interface FoodDao {
     @Query("""
         SELECT *
         FROM Food
-        WHERE LOWER(Food.name) LIKE LOWER(:query) 
+        WHERE LOWER(Food.name) LIKE LOWER(:query) AND
+              Food.category LIKE :category
     """)
     // Query is the user's query with '%' at start and end
     // LOWER in both strings to ignore case
-    fun searchFoods(query: String) : Flow<List<Food>>
+    fun searchFoods(query: String, category: String) : Flow<List<Food>>
 
     @Update
     fun updateFood(food: Food)

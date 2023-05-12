@@ -37,7 +37,6 @@ class FoodListActivity : AppCompatActivity() {
             setOnQueryTextListener(object : OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     if (query != null) {
-                        println("change")
                         foodListViewModel.getFoods(query)
                     }
                     return true

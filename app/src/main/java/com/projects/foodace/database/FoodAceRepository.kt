@@ -2,8 +2,8 @@ package com.projects.foodace.database
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import com.projects.foodace.model.CartEntry
+import com.projects.foodace.model.Category
 import com.projects.foodace.model.Food
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
@@ -56,17 +56,10 @@ class FoodAceRepository(application: Application) {
         return foodDao!!.getPopularFoods()
     }
 
-    fun searchFoods(query: String): Flow<List<Food>> {
-        val dbQuery = "%$query%"
-        return foodDao!!.searchFoods(dbQuery)
-    }
-
-    suspend fun getFood(name: String): LiveData<Food> {
-        println("called get")
-        return asyncGetFood(name).await().map {
-            println(it)
-            it ?: throw IllegalStateException("Food not found to show details.")
-        }
+    fun searchFoods(query: String?, category: Category?): Flow<List<Food>> {
+        val dbQuery = if (query != null) "%$query%" else "%"
+        val dbCategory = category?.name ?: "%"
+        return foodDao!!.searchFoods(dbQuery, dbCategory)
     }
 
     fun getFavoriteFoods(): Flow<List<Food>> {

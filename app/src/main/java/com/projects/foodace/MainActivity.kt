@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.projects.foodace.databinding.ActivityMainBinding
+import com.projects.foodace.model.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -14,6 +15,7 @@ class MainActivity : FragmentActivity() {
         (binding.pageFragmentView.getFragment() as NavHostFragment).navController
     }
     private val navigationView by lazy { binding.navBar }
+    private val cartViewModel by lazy { (application as FoodAceApplication).cartViewModel }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -9,7 +9,7 @@ private const val USERNAME_KEY = "username"
 
 private const val LOGIN_TAG = "LOGIN"
 
-class LoginManager(application: LoggedApplication) {
+class LoginManager(application: FoodAceApplication) {
     private val sharedPrefs: SharedPreferences
 
     private var keepLogin: Boolean

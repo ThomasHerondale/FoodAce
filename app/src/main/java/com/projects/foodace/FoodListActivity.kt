@@ -47,6 +47,7 @@ class FoodListActivity : AppCompatActivity() {
                     return false
                 }
             })
+            clearFocus()
         }
 
         binding.backButton.setOnClickListener { onBackPressedDispatcher.onBackPressed() }

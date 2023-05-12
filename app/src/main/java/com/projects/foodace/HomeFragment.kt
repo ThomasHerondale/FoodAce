@@ -52,6 +52,12 @@ class HomeFragment : NavHostFragment() {
             )
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Search bar gets not selected on resume
+        binding.mainSearchBar.clearFocus()
+    }
+
     private fun initCategoriesList() {
         Log.v("Init", "Initializing categories RecyclerView")
         binding.categoriesList.apply {

@@ -12,4 +12,7 @@ class FoodAceApplication(
         ViewModelProvider.AndroidViewModelFactory.getInstance(this)
             .create(CartViewModel::class.java)
     }
+
+    // TODO: controllo e provider dinamici se mai ci saranno più viewModel
+    operator fun getValue(ref: Any?, property: KProperty<*>) = cartViewModel
 }

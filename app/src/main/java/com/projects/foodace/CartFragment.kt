@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
@@ -22,7 +21,7 @@ import com.projects.foodace.recyclers.CartEntriesAdapter
 
 class CartFragment : NavHostFragment() {
     private lateinit var binding: FragmentCartBinding
-    private val viewModel: CartViewModel by activityViewModels()
+    private val viewModel: CartViewModel by lazy { applicationViewModels() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

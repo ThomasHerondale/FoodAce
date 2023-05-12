@@ -1,8 +1,6 @@
 package com.projects.foodace
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -23,7 +21,7 @@ class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        loginManager = (application as LoggedApplication).loginManager
+        loginManager = (application as FoodAceApplication).loginManager
 
         val loggedUsername = loginManager.loggedUsername
 

@@ -1,10 +1,10 @@
 package com.projects.foodace
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 class FavoriteFragment : Fragment() {
     private lateinit var binding: FragmentFavoriteBinding
     private val favoriteFoodsViewModel: FavoriteFoodsViewModel by activityViewModels()
-    private val cartViewModel: CartViewModel by activityViewModels()
+    private val cartViewModel: CartViewModel by lazy { applicationViewModels() }
 
     private val detailsActivityLauncher = registerForActivityResult(AddToCartContract()) {
         if (it.quantity != 0)

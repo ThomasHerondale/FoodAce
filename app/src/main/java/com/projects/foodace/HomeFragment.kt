@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 class HomeFragment : NavHostFragment() {
     private lateinit var binding: FragmentHomeBinding
     private val popularFoodsViewModel: PopularFoodsViewModel by activityViewModels()
-    private val cartViewModel: CartViewModel by activityViewModels()
+    private val cartViewModel: CartViewModel by lazy { applicationViewModels() }
 
     private val detailsActivityLauncher = registerForActivityResult(AddToCartContract()) {
         if (it.quantity != 0) // Quantity can be 0 if user exits using back button

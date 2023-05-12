@@ -3,6 +3,7 @@ package com.projects.foodace
 import android.app.SearchManager
 import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -62,7 +63,13 @@ class HomeFragment : NavHostFragment() {
         Log.v("Init", "Initializing categories RecyclerView")
         binding.categoriesList.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = CategoriesAdapter()
+            adapter = CategoriesAdapter {
+                val intent = Intent(context, FoodListActivity::class.java).apply {
+                    action = FILTER
+                    putExtra("category", it)
+                }
+                startActivity(intent)
+            }
         }
     }
 

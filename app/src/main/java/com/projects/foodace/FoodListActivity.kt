@@ -1,7 +1,7 @@
 package com.projects.foodace
 
 import android.app.SearchManager
-import android.content.Intent
+import android.content.Intent.ACTION_SEARCH
 import android.os.Bundle
 import android.widget.SearchView.OnQueryTextListener
 import androidx.activity.viewModels
@@ -10,8 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import com.projects.foodace.databinding.ActivityFoodListBinding
 import com.projects.foodace.model.CartViewModel
+import com.projects.foodace.model.Category
 import com.projects.foodace.model.FoodListViewModel
 import com.projects.foodace.recyclers.FoodEntryAdapter
+
+const val CATEGORY_KEY = "category"
 
 class FoodListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFoodListBinding
@@ -28,10 +31,15 @@ class FoodListActivity : AppCompatActivity() {
         binding = ActivityFoodListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (intent.action == Intent.ACTION_SEARCH)
-            intent.getStringExtra(SearchManager.QUERY)?.also { foodListViewModel.getFoods(it) }
-        else
-            TODO()
+        when (intent.action) {
+            ACTION_SEARCH ->
+                intent.getStringExtra(SearchManager.QUERY)?.also { foodListViewModel.getFoods(it) }
+            FILTER ->
+                intent.extras?.get(CATEGORY_KEY)?.also {
+                    foodListViewModel.getFoods(category = it as Category)
+                }
+            else -> TODO()
+        }
 
         binding.searchBar.apply {
             setOnQueryTextListener(object : OnQueryTextListener {

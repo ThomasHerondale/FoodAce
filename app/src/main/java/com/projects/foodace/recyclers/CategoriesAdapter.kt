@@ -11,7 +11,9 @@ import com.projects.foodace.R
 import com.projects.foodace.databinding.CategoryViewHolderBinding
 import com.projects.foodace.model.Category
 
-class CategoriesAdapter : Adapter<CategoriesAdapter.ViewHolder>() {
+class CategoriesAdapter(
+    private val activityLauncher: (Category) -> Unit
+) : Adapter<CategoriesAdapter.ViewHolder>() {
     private val categories = Category.values()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,6 +34,8 @@ class CategoriesAdapter : Adapter<CategoriesAdapter.ViewHolder>() {
         Glide.with(holder.itemView)
             .load(category.img)
             .into(holder.binding.categoryImg)
+
+        holder.binding.categoryCard.setOnClickListener { activityLauncher(category) }
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
@@ -44,3 +48,4 @@ class CategoriesAdapter : Adapter<CategoriesAdapter.ViewHolder>() {
     }
 
 }
+

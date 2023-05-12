@@ -11,3 +11,6 @@ operator fun Lazy<FoodAceApplication>.getValue(ref: Any?, property: KProperty<*>
 fun Fragment.applicationViewModels() = (this.requireActivity().application as FoodAceApplication)
 
 fun Activity.applicationViewModels() = (application as FoodAceApplication)
+
+// Custom action for intent
+const val FILTER = "foodace.action.FILTER"

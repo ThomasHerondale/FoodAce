@@ -30,7 +30,7 @@ class AccountFragment : Fragment() {
         initAccountInfo()
 
         binding.logoutBttn.setOnClickListener {
-            (requireActivity().application as LoggedApplication).loginManager.logout()
+            (requireActivity().application as FoodAceApplication).loginManager.logout()
 
             val intent = Intent(context, StartActivity::class.java)
             startActivity(intent)

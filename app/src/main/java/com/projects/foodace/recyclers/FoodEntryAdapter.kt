@@ -40,6 +40,9 @@ class FoodEntryAdapter(private val detailsActivityLauncher: ActivityResultLaunch
                 .load(food.img)
                 .transform(RoundedCorners(12))
                 .into(foodImgEntry)
+
+            // Workaround per avere il bordo solo se il cibo è nei preferiti
+            holder.binding.foodCardEntry.isSelected = food.isFavorite
         }
     }
 

@@ -8,8 +8,12 @@ import kotlin.reflect.KProperty
 class FoodAceApplication(
 ) : Application() {
     val loginManager by lazy { LoginManager(this) }
-    val cartViewModel by lazy {
-        ViewModelProvider.AndroidViewModelFactory.getInstance(this)
+    private lateinit var _cartViewModel: CartViewModel
+    val cartViewModel by lazy { _cartViewModel }
+
+    override fun onCreate() {
+        super.onCreate()
+        _cartViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(this)
             .create(CartViewModel::class.java)
     }
 

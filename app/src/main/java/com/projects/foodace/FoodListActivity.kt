@@ -16,7 +16,7 @@ import com.projects.foodace.recyclers.FoodEntryAdapter
 class FoodListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFoodListBinding
     private val foodListViewModel: FoodListViewModel by viewModels()
-    private val cartViewModel: CartViewModel by viewModels()
+    private val cartViewModel: CartViewModel by lazy { applicationViewModels() }
 
     private val detailsActivityLauncher = registerForActivityResult(AddToCartContract()) {
         if (it.quantity != 0)

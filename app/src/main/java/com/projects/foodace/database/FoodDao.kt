@@ -42,7 +42,7 @@ interface FoodDao {
     """)
     // Query is the user's query with '%' at start and end
     // LOWER in both strings to ignore case
-    fun searchFoods(query: String, category: String) : Flow<List<Food>>
+    fun searchFoods(query: String, category: String) : List<Food>
 
     @Update
     fun updateFood(food: Food)

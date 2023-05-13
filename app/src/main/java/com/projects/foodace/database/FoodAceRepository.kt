@@ -10,6 +10,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
@@ -56,10 +57,22 @@ class FoodAceRepository(application: Application) {
         return foodDao!!.getPopularFoods()
     }
 
-    fun searchFoods(query: String?, category: Category?): Flow<List<Food>> {
+    suspend fun searchFoods(query: String?, categories: List<Category>?): Flow<List<Food>> {
+        val foods = mutableListOf<Food>()
         val dbQuery = if (query != null) "%$query%" else "%"
-        val dbCategory = category?.name ?: "%"
-        return foodDao!!.searchFoods(dbQuery, dbCategory)
+
+        if (categories != null) // Filter by categories
+            categories.forEach { foods.addAll(asyncSearchFoods(dbQuery, it.name).await()) }
+        else // Filter only by query
+            foods.addAll(asyncSearchFoods(dbQuery, "%").await())
+
+        return flowOf(foods)
+    }
+
+    private fun asyncSearchFoods(query: String, category: String): Deferred<List<Food>> {
+        return coroutineScope.async {
+            foodDao!!.searchFoods(query, category)
+        }
     }
 
     fun getFavoriteFoods(): Flow<List<Food>> {

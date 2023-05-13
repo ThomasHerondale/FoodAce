@@ -21,9 +21,11 @@ class FoodListViewModel(application: Application) : AndroidViewModel(application
 
     fun getFoods(
         query: String? = null,
-        category: Category? = null,
+        categories: List<Category>? = null,
     ) {
-        foodsFlow = repository.searchFoods(query, category)
-        coroutineScope.launch { foodsFlow.collect { _foods.postValue(it) } }
+        coroutineScope.launch {
+            foodsFlow = repository.searchFoods(query, categories)
+            foodsFlow.collect { _foods.postValue(it) }
+        }
     }
 }

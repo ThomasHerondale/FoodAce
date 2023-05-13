@@ -43,7 +43,7 @@ class FoodListActivity : AppCompatActivity() {
                 intent.getStringExtra(SearchManager.QUERY)?.also { foodListViewModel.getFoods(it) }
             FILTER ->
                 intent.extras?.get(CATEGORY_KEY)?.also {
-                    foodListViewModel.getFoods(category = it as Category)
+                    foodListViewModel.getFoods(categories = listOf(it as Category))
                 }
             else -> TODO()
         }

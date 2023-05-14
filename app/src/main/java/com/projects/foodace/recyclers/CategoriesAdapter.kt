@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy.NONE
 import com.projects.foodace.R
 import com.projects.foodace.databinding.CategoryViewHolderBinding
 import com.projects.foodace.model.Category
@@ -33,6 +34,7 @@ class CategoriesAdapter(
 
         Glide.with(holder.itemView)
             .load(category.img)
+            .diskCacheStrategy(NONE)
             .into(holder.binding.categoryImg)
 
         holder.binding.categoryCard.setOnClickListener { activityLauncher(category) }

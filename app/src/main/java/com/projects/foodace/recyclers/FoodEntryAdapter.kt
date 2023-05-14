@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy.NONE
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.projects.foodace.R
 import com.projects.foodace.databinding.FoodListViewHolderBinding
@@ -39,6 +40,7 @@ class FoodEntryAdapter(private val detailsActivityLauncher: ActivityResultLaunch
             Glide.with(holder.itemView)
                 .load(food.img)
                 .transform(RoundedCorners(12))
+                .diskCacheStrategy(NONE)
                 .into(foodImgEntry)
 
             // Workaround per avere il bordo solo se il cibo è nei preferiti

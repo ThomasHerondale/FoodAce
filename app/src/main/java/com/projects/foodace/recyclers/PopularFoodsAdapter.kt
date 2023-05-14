@@ -1,16 +1,15 @@
 package com.projects.foodace.recyclers
 
-import android.graphics.Outline
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewOutlineProvider
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy.NONE
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.projects.foodace.R
 import com.projects.foodace.databinding.PopularFoodViewHolderBinding
@@ -37,6 +36,7 @@ class PopularFoodsAdapter(private val detailsActivityLauncher: ActivityResultLau
         Glide.with(holder.itemView)
             .load(food.img)
             .transform(RoundedCorners(16))
+            .diskCacheStrategy(NONE)
             .into(holder.binding.foodImg)
 
         // Workaround per avere il bordo solo se il cibo è nei preferiti
